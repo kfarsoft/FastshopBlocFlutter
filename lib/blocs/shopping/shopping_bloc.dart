@@ -55,11 +55,10 @@ class ShoppingBloc implements BlocBase {
 
   void _computeShoppingBasketTotalPrice(){
     double total = 0.0;
-
     _shoppingBasket.forEach((ShoppingItem item){
       total += item.price;
     });
-
+    total = num.parse(total.toStringAsFixed(2));
     _shoppingBasketPriceController.sink.add(total);
   }
 

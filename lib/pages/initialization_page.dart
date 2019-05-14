@@ -42,7 +42,7 @@ class _InitializationPageState extends State<InitializationPage> {
                     Navigator.of(context).pushReplacementNamed('/decision');
                   });
                 }
-                return Text('Initialization in progress... ${state.progress}%');
+                return Text('aca va la animacion de fastshop!... ${state.progress}%');
               },
             ),
           ),

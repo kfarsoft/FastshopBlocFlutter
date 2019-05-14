@@ -80,8 +80,8 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
   }
 
   Widget _buildAddToShoppingBasket(){
-    return RaisedButton(
-      child: Text('Add...'),
+    return IconButton(
+      icon: Icon(Icons.add_circle_outline, color: Colors.green,), 
       onPressed: (){
         _shoppingBloc.addToShoppingBasket(widget.shoppingItem);
       },
@@ -89,8 +89,8 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
   }
 
   Widget _buildRemoveFromShoppingBasket(){
-    return RaisedButton(
-      child: Text('Remove...'),
+    return IconButton(
+      icon: Icon(Icons.remove_circle_outline, color: Colors.red,), 
       onPressed: (){
         _shoppingBloc.removeFromShoppingBasket(widget.shoppingItem);
       },
@@ -99,20 +99,37 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: GridTileBar(
-        leading: Center(
-          child: Text(widget.shoppingItem.title),
+        return Card(
+          
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            
+            children: <Widget>[
+ListTile(
+        leading: 
+ Text(widget.shoppingItem.title),
+        
+        title: 
+        Container(
+          child: Column(
+           crossAxisAlignment: CrossAxisAlignment.end,
+           children: <Widget>[
+
+             Text('\$${widget.shoppingItem.price}'),          
+           ],
+          )
+          
         ),
-        title: Center(
-          child: Text('${widget.shoppingItem.price} \$'),
-        ),
-        trailing: Container(
-          child: Center(
-            child: _buildButton(),
-          ),
-        ),
+
+        trailing: 
+        // Container(
+          // child: 
+          // Center(
+           _buildButton(),
+          // ),
+        // ),
       ),
+          ],),
     );
   }
 }

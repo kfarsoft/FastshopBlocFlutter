@@ -12,7 +12,7 @@ class ShoppingBasketPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Shopping Basket'),
+          title: Text('Mi Carrito'),
         ),
         body: Container(
           child: StreamBuilder<List<ShoppingItem>>(
@@ -22,11 +22,8 @@ class ShoppingBasketPage extends StatelessWidget {
             if (!snapshot.hasData) {
               return Container();
             }
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 1.0,
-              ),
+            return ListView.builder(
+              
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return ShoppingItemWidget(shoppingItem: snapshot.data[index]);

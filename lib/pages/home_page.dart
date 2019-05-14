@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Home Page'),
+            title: Text('FastShop'),
             leading: Container(),
             actions: <Widget>[
               LogOutButton(),
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('Shopping Basket'),
+                        Text('Mi Carrito'),
                         SizedBox(
                           width: 16.0,
                         ),

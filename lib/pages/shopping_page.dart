@@ -26,11 +26,7 @@ class ShoppingPage extends StatelessWidget {
             if (!snapshot.hasData) {
               return Container();
             }
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 3.0,
-              ),
+            return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return ShoppingItemWidget(
