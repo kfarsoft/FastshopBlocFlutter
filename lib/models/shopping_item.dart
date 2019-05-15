@@ -5,12 +5,14 @@ class ShoppingItem extends Object {
   final String title;
   final double price;
   final Color color;
+  int quantity;
 
-  const ShoppingItem({
+  ShoppingItem({
     this.id,
     this.title,
     this.price,
     this.color,
+    this.quantity,
   });
 
   @override

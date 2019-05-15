@@ -23,7 +23,6 @@ class ShoppingBloc implements BlocBase {
   BehaviorSubject<List<ShoppingItem>> _shoppingBasketController = BehaviorSubject<List<ShoppingItem>>.seeded(<ShoppingItem>[]);
   Stream<List<ShoppingItem>> get shoppingBasket => _shoppingBasketController;
 
-
   @override
   void dispose() {
     _itemsController?.close();
@@ -38,11 +37,13 @@ class ShoppingBloc implements BlocBase {
   }
 
   void addToShoppingBasket(ShoppingItem item){
+    item.quantity++;
     _shoppingBasket.add(item);
     _postActionOnBasket();
   }
 
   void removeFromShoppingBasket(ShoppingItem item){
+    item.quantity--;
     _shoppingBasket.remove(item);
     _postActionOnBasket();
   }
@@ -76,6 +77,7 @@ class ShoppingBloc implements BlocBase {
             100.0,
         color: Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0)
             .withOpacity(1.0),
+        quantity: 0,
       );
     }));
   }
