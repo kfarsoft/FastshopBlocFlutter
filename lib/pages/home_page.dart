@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fastshop/pages/shopping_page.dart';
 import 'package:fastshop/widgets/log_out_button.dart';
 import 'package:fastshop/widgets/shopping_basket.dart';

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
+import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/blocs/shopping/shopping_item_bloc.dart';
 import 'package:fastshop/models/shopping_item.dart';
@@ -22,6 +23,7 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
   StreamSubscription _subscription;
   ShoppingItemBloc _bloc;
   ShoppingBloc _shoppingBloc;
+  CartBloc _cartBloc;
 
   @override
   void didChangeDependencies() {
@@ -57,6 +59,7 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
     // Retrieve the BLoC that handles the Shopping Basket content 
     _shoppingBloc = BlocProvider.of<ShoppingBloc>(context);
 
+    _cartBloc = BlocProvider.of<CartBloc>(context);
     // Simple pipe that transfers the content of the shopping
     // basket to the ShoppingItemBloc
     _subscription = _shoppingBloc.shoppingBasket.listen(_bloc.shoppingBasket);
@@ -83,7 +86,7 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
     return IconButton(
       icon: Icon(Icons.add_circle_outline, color: Colors.green,), 
       onPressed: (){
-        _shoppingBloc.addToShoppingBasket(widget.shoppingItem);
+        _cartBloc.addToCart(widget.shoppingItem);
       },
     );
   }

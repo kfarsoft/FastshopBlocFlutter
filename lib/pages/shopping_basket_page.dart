@@ -1,4 +1,5 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
+// import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/models/shopping_item.dart';
 import 'package:fastshop/widgets/shopping_item_widget.dart';
@@ -8,7 +9,7 @@ class ShoppingBasketPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ShoppingBloc shoppingBloc = BlocProvider.of<ShoppingBloc>(context);
-
+    // CartBloc  cartBloc = BlocProvider.of<CartBloc>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

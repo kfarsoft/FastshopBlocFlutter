@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fastshop/bloc_helpers/bloc_state_transform_base.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';

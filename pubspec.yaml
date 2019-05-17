@@ -17,7 +17,8 @@ dependencies:
     sdk: flutter
   rxdart:
   cupertino_icons: ^0.1.2
-
+  numberpicker: ^1.0.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

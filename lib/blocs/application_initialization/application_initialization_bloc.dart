@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fastshop/bloc_helpers/bloc_event_state.dart';
 import 'package:fastshop/blocs/application_initialization/application_initialization_event.dart';
 import 'package:fastshop/blocs/application_initialization/application_initialization_state.dart';

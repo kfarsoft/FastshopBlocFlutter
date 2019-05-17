@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';

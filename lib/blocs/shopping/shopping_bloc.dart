@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
@@ -37,7 +38,7 @@ class ShoppingBloc implements BlocBase {
   }
 
   void addToShoppingBasket(ShoppingItem item){
-    item.quantity++;
+    // item.quantity++;
     _shoppingBasket.add(item);
     _postActionOnBasket();
   }
@@ -59,7 +60,7 @@ class ShoppingBloc implements BlocBase {
     _shoppingBasket.forEach((ShoppingItem item){
       total += item.price;
     });
-    total = num.parse(total.toStringAsFixed(2));
+    total = num.parse(total.toStringAsFixed(2)); 
     _shoppingBasketPriceController.sink.add(total);
   }
 
