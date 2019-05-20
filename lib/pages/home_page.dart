@@ -18,54 +18,52 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPopScope,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('FastShop'),
-            leading: Container(),
-            actions: <Widget>[
-              LogOutButton(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('FastShop'),
+          leading: Container(),
+          actions: <Widget>[
+            LogOutButton(),
+          ],
+        ),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              
+              ListTile(
+                title: RaisedButton(
+                  child: Text('Shopping'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ShoppingPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              ListTile(
+                title: RaisedButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Mi Carrito'),
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      ShoppingBasket(),
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      ShoppingBasketPrice(),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/shoppingBasket');
+                  },
+                ),
+              ),
             ],
-          ),
-          body: Container(
-            child: Column(
-              children: <Widget>[
-                
-                ListTile(
-                  title: RaisedButton(
-                    child: Text('Shopping'),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => ShoppingPage(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                ListTile(
-                  title: RaisedButton(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text('Mi Carrito'),
-                        SizedBox(
-                          width: 16.0,
-                        ),
-                        ShoppingBasket(),
-                        SizedBox(
-                          width: 16.0,
-                        ),
-                        ShoppingBasketPrice(),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/shoppingBasket');
-                    },
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

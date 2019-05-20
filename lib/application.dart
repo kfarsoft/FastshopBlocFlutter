@@ -6,6 +6,7 @@ import 'package:fastshop/pages/cart_page.dart';
 import 'package:fastshop/pages/decision_page.dart';
 import 'package:fastshop/pages/initialization_page.dart';
 import 'package:fastshop/pages/registration_page.dart';
+import 'package:fastshop/widgets/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatelessWidget {
@@ -18,14 +19,15 @@ class Application extends StatelessWidget {
         child: BlocProvider<CartBloc>(
           bloc: CartBloc(),
           child: MaterialApp(
-            title: 'BLoC Samples',
+            title: 'FastShop',
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            routes: {
+            routes: 
+            {
               '/decision': (BuildContext context) => DecisionPage(),
               '/register': (BuildContext context) => RegistrationPage(),
-              '/shoppingBasket': (BuildContext context) => CartPage(),
+              '/shoppingBasket': (BuildContext context) => BlocCartPage(),
             },
             home: InitializationPage(),
           ),

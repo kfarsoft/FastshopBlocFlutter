@@ -4,7 +4,7 @@ import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/blocs/shopping/shopping_item_bloc.dart';
-import 'package:fastshop/models/shopping_item.dart';
+import 'package:fastshop/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingItemWidget extends StatefulWidget {
@@ -13,7 +13,7 @@ class ShoppingItemWidget extends StatefulWidget {
     @required this.shoppingItem,
   }) : super(key: key);
 
-  final ShoppingItem shoppingItem;
+  final Product shoppingItem;
 
   @override
   _ShoppingItemWidgetState createState() => _ShoppingItemWidgetState();
@@ -86,7 +86,8 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
     return IconButton(
       icon: Icon(Icons.add_circle_outline, color: Colors.green,), 
       onPressed: (){
-        _cartBloc.addToCart(widget.shoppingItem);
+        _cartBloc.cartAddition.add(CartAddition(widget.shoppingItem));
+        // _cartBloc.addToCart(widget.shoppingItem);
       },
     );
   }
@@ -110,7 +111,7 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
             children: <Widget>[
 ListTile(
         leading: 
- Text(widget.shoppingItem.title),
+ Text(widget.shoppingItem.name),
         
         title: 
         Container(

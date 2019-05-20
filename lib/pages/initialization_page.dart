@@ -27,24 +27,22 @@ class _InitializationPageState extends State<InitializationPage> {
 
   @override
   Widget build(BuildContext pageContext) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          child: Center(
-            child: BlocEventStateBuilder<ApplicationInitializationState>(
-              bloc: bloc,
-              builder: (BuildContext context, ApplicationInitializationState state){
-                if (state.isInitialized){
-                  //
-                  // Once the initialization is complete, let's move to another page
-                  //
-                  WidgetsBinding.instance.addPostFrameCallback((_){
-                    Navigator.of(context).pushReplacementNamed('/decision');
-                  });
-                }
-                return Text('aca va la animacion de fastshop!... ${state.progress}%');
-              },
-            ),
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: BlocEventStateBuilder<ApplicationInitializationState>(
+            bloc: bloc,
+            builder: (BuildContext context, ApplicationInitializationState state){
+              if (state.isInitialized){
+                //
+                // Once the initialization is complete, let's move to another page
+                //
+                WidgetsBinding.instance.addPostFrameCallback((_){
+                  Navigator.of(context).pushReplacementNamed('/decision');
+                });
+              }
+              return Text('aca va la animacion de fastshop!... ${state.progress}%');
+            },
           ),
         ),
       ),

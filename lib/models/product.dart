@@ -1,18 +1,17 @@
 import 'dart:ui';
 
-class ShoppingItem extends Object {
+class Product extends Object {
   final int id;
-  final String title;
+  final String name;
   final double price;
   final Color color;
-  int quantity;
 
-  ShoppingItem({
+
+  Product({
     this.id,
-    this.title,
+    this.name,
     this.price,
     this.color,
-    this.quantity,
   });
 
   @override
