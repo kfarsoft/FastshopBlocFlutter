@@ -6,7 +6,6 @@ import 'package:fastshop/pages/cart_page.dart';
 import 'package:fastshop/pages/decision_page.dart';
 import 'package:fastshop/pages/initialization_page.dart';
 import 'package:fastshop/pages/registration_page.dart';
-import 'package:fastshop/widgets/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatelessWidget {
