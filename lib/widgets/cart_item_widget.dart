@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/models/cartItem.dart';
+import 'package:fastshop/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -80,7 +81,7 @@ class ItemTile extends StatelessWidget {
         }).then((int value) {
       if (value != null) {
         print("cambiar cantidad");
-        cartBloc.;
+        cartBloc.cartUpdate.add(CartAddition(item.product, value));
       }
     });
   }

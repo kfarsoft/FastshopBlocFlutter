@@ -27,6 +27,8 @@ class CartBloc implements BlocBase {
   final StreamController<CartAddition> _cartAdditionController =
       StreamController<CartAddition>();
 
+  final StreamController<CartAddition> _cartUpdateController =
+      StreamController<CartAddition>();
 
   CartBloc(){
     _cartAdditionController.stream.listen((addition) {
@@ -38,11 +40,22 @@ class CartBloc implements BlocBase {
         _itemCount.add(updatedCount);
       }
     });
+    _cartUpdateController.stream.listen((addition){
+      int currentCount = _cart.itemCount;
+      _cart.update(addition.product, addition.count);
+      _items.add(_cart.items);
+      int updatedCount = _cart.itemCount;
+      if (updatedCount != currentCount){
+        _itemCount.add(updatedCount);
+      }
+    });
   }
 
 
 
   Sink<CartAddition> get cartAddition => _cartAdditionController.sink;
+
+  Sink<CartAddition> get cartUpdate => _cartUpdateController.sink;
 
   Stream<int> get itemCount => _itemCount.stream;
 
@@ -53,6 +66,7 @@ class CartBloc implements BlocBase {
     _items.close();
     _itemCount.close();
     _cartAdditionController.close();
+    _cartUpdateController.close();
   }
 }
 

@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:fastshop/models/product.dart';
 import 'package:fastshop/models/cartItem.dart';
 
-
 class Cart {
   final List<CartItem> _items = <CartItem>[];
 
@@ -49,6 +48,11 @@ class Cart {
     _updateCount(product, -count);
   }
 
+  /// Updates the [count] of a [product] from the cart.
+  void update(Product product, [int count = 1]) {
+    _setNewCount(product, count);
+  }
+
   @override
   String toString() => "$items";
 
@@ -68,5 +72,21 @@ class Cart {
     }
     if (difference < 0) return;
     _items.add(CartItem(max(difference, 0), product));
+  }
+
+  void _setNewCount(Product product, int count) {
+    if (count == 0) return;
+    for (var i = 0; i < _items.length; i++) {
+      final item = _items[i];
+      if (product == item.product) {
+        final newCount = count;
+        if (newCount <= 0) {
+          items.removeAt(i);
+          return;
+        }
+        _items[i] = CartItem(newCount, item.product);
+        return;
+      }
+    }
   }
 }
