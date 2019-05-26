@@ -6,6 +6,8 @@ class CartItem {
 
   const CartItem(this.count, this.product);
 
+  double get totalPrice => count * product.price;
+  
   @override
   String toString() => "${product.name}: \$$count";
   

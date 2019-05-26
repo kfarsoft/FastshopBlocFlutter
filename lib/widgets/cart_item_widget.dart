@@ -20,7 +20,7 @@ class ItemTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(item.product.name),
-                Text('\$${item.product.price * item.count}',
+                Text('\$${num.parse((item.product.price * item.count).toStringAsFixed(2))}',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
