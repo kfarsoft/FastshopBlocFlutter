@@ -65,8 +65,6 @@ class ItemTile extends StatelessWidget {
       }
     });
   }
-<<<<<<< HEAD
-=======
 
   Widget _buildRemoveFromShoppingBasket(BuildContext context) {
     final cartBloc = BlocProvider.of<CartBloc>(context);
@@ -80,5 +78,4 @@ class ItemTile extends StatelessWidget {
       },
     );
   }
->>>>>>> addCarritoCompra
 }
