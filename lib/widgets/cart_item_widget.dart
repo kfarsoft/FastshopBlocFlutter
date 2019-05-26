@@ -1,24 +1,8 @@
-import 'dart:async';
-
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/models/cartItem.dart';
-import 'package:fastshop/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
-
-Widget _buildRemoveFromShoppingBasket() {
-  return IconButton(
-    icon: Icon(
-      Icons.remove_circle_outline,
-      color: Colors.red,
-    ),
-    onPressed: () {
-      // _cartBloc.removeFromShoppingBasket(widget.cartItem);
-      print('remove');
-    },
-  );
-}
 
 class ItemTile extends StatelessWidget {
   ItemTile({this.item});
@@ -36,7 +20,7 @@ class ItemTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(item.product.name),
-                Text('\$${item.product.price * item.count}',
+                Text('\$${num.parse((item.product.price * item.count).toStringAsFixed(2))}',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
@@ -57,7 +41,7 @@ class ItemTile extends StatelessWidget {
             ],
           ),
           trailing: Container(
-            child: _buildRemoveFromShoppingBasket(),
+            child: _buildRemoveFromShoppingBasket(context),
           ),
         ),
       ),
@@ -74,9 +58,6 @@ class ItemTile extends StatelessWidget {
             minValue: 1,
             maxValue: 100,
             title: Text('Elige una cantidad'),
-            // step: 10,
-            // onChanged: (value) => setState(() => widget.cartItem.quantity = value),
-            //aca hay que decirle al bloc que la cantidad cambio!
           );
         }).then((int value) {
       if (value != null) {
@@ -84,4 +65,20 @@ class ItemTile extends StatelessWidget {
       }
     });
   }
+<<<<<<< HEAD
+=======
+
+  Widget _buildRemoveFromShoppingBasket(BuildContext context) {
+    final cartBloc = BlocProvider.of<CartBloc>(context);
+    return IconButton(
+      icon: Icon(
+        Icons.remove_circle_outline,
+        color: Colors.red,
+      ),
+      onPressed: () {
+        cartBloc.cartAddition.add(CartAddition(item.product, -item.count));
+      },
+    );
+  }
+>>>>>>> addCarritoCompra
 }
