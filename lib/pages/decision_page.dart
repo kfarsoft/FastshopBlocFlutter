@@ -5,8 +5,16 @@ import 'package:fastshop/blocs/authentication/authentication_state.dart';
 import 'package:fastshop/pages/authentication_page.dart';
 import 'package:fastshop/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:user_repository/user_repository.dart';
 
 class DecisionPage extends StatefulWidget {
+  //Para el username
+  final UserRepository userRepository;
+
+  DecisionPage({Key key, @required this.userRepository})
+      : assert(userRepository != null),
+        super(key: key);
+
   @override
   DecisionPageState createState() {
     return new DecisionPageState();
@@ -15,6 +23,7 @@ class DecisionPage extends StatefulWidget {
 
 class DecisionPageState extends State<DecisionPage> {
   AuthenticationState oldAuthenticationState;
+  UserRepository get _userRepository => widget.userRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,7 @@ class DecisionPageState extends State<DecisionPage> {
           oldAuthenticationState = state;
 
           if (state.isAuthenticated){
-            _redirectToPage(context, HomePage());
+            _redirectToPage(context, HomePage(user: _userRepository.client.username));
           } else if (state.isAuthenticating || state.hasFailed){
   //do nothing
           } else {

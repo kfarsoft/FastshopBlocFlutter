@@ -30,7 +30,7 @@ class Application extends StatelessWidget {
             ),
             routes: 
             {
-              '/decision': (BuildContext context) => DecisionPage(),
+              '/decision': (BuildContext context) => DecisionPage(userRepository: userRepository,),
               '/register': (BuildContext context) => RegistrationPage(),
               '/shoppingBasket': (BuildContext context) => BlocCartPage(),
             },
