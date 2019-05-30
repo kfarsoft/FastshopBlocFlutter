@@ -7,12 +7,18 @@ import 'package:fastshop/pages/decision_page.dart';
 import 'package:fastshop/pages/initialization_page.dart';
 import 'package:fastshop/pages/registration_page.dart';
 import 'package:flutter/material.dart';
+import 'package:user_repository/user_repository.dart';
 
 class Application extends StatelessWidget {
+
+  final UserRepository userRepository;
+
+  Application({Key key, @required this.userRepository}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthenticationBloc>(
-      bloc: AuthenticationBloc(),
+      bloc: AuthenticationBloc(userRepository: userRepository),
       child: BlocProvider<ShoppingBloc>(
         bloc: ShoppingBloc(),
         child: BlocProvider<CartBloc>(

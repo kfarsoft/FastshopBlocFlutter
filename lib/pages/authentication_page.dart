@@ -15,15 +15,17 @@ class AuthenticationPage extends StatelessWidget {
   Future<bool> _onWillPopScope() async {
     return false;
   }
-
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     AuthenticationBloc bloc = BlocProvider.of<AuthenticationBloc>(context);
     return WillPopScope(
       onWillPop: _onWillPopScope,
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          title: Text('Authentication Page'),
+          title: Text('Fastshop - Iniciar Sesion'),
           leading: Container(),
         ),
         body: Container(
@@ -44,44 +46,74 @@ class AuthenticationPage extends StatelessWidget {
               // Button to fake the authentication (success)
               children.add(
                 ListTile(
-                    title: RaisedButton(
-                      child: Text('Log in (success)'),
-                      onPressed: () {
-                          bloc.emitEvent(AuthenticationEventLogin(name: 'Didier'));
-                      },
-                    ),
-                  ),
-              );
-
-              // Button to fake the authentication (failure)
-              children.add(
-                ListTile(
-                    title: RaisedButton(
-                      child: Text('Log in (failure)'),
-                      onPressed: () {
-                          bloc.emitEvent(AuthenticationEventLogin(name: 'failure'));
-                      },
-                    ),
-                  ),
-              );
-
-              // Button to redirect to the registration page
-              children.add(
-                ListTile(
-                  title: RaisedButton(
-                    child: Text('Register'),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed('/register');
-                    },
+                  title: Column(
+                    children: <Widget>[
+                      Image.asset('assets/logo.png', scale: 1.5),
+                      SizedBox(height: 10.0),
+                    ],
                   ),
                 ),
               );
 
+              children.add(
+                ListTile(
+                  title: TextFormField(
+                    decoration: InputDecoration(labelText: 'Usuario'),
+                    controller: _usernameController,
+                  ),
+                ),
+              );
+
+              children.add(
+                ListTile(
+                  title: TextFormField(
+                    decoration: InputDecoration(labelText: 'Contraseña'),
+                    controller: _passwordController,
+                    obscureText: true,
+                  ),
+                ),
+              );
+
+              children.add(
+                ListTile(
+                  title: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      onPressed: () {bloc.emitEvent(AuthenticationEventLogin(username: _usernameController.text, password: _passwordController.text));},
+                      padding: EdgeInsets.all(10),
+                      color: Colors.blueAccent,
+                      child: Text('Iniciar Sesion', style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                ),
+              );
+
+              children.add(
+                ListTile(
+                  title: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      onPressed: () {Navigator.of(context).pushNamed('/register');},
+                      padding: EdgeInsets.all(10),
+                      color: Colors.white,
+                      child: Text('Registrate con tu mail', style: TextStyle(color: Colors.blueAccent)),
+                    ),
+                  ),
+                ),
+              );
+
+
+
               // Display a text if the authentication failed
               if (state.hasFailed){
                 children.add(
-                  Text('Authentication failure!'),
+                  Text('Usuario o Contraseña incorrecto!', style: TextStyle(fontSize: 15.0,color: Colors.red)),
                 );
               }
 
