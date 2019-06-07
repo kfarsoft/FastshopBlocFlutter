@@ -2,15 +2,11 @@ import 'package:fastshop/functions/getUsername.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fastshop/blocs/home/listado_bloc.dart';
+import 'package:fastshop/blocs/listados/listado_bloc.dart';
 
 import 'listado_details.dart';
 
 class LisCompra extends StatelessWidget {
-
- // var user;
-
-  //LisCompra({this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +18,6 @@ class LisCompra extends StatelessWidget {
 
 class ListadoCompras extends StatefulWidget {
 
-  //var user;
-  //ListadoCompras(this.user, {Key key}) : super(key: key);
   @override
   ListadoComprasState createState() => ListadoComprasState();
 }
@@ -33,32 +27,33 @@ class ListadoComprasState extends State<ListadoCompras> {
 
   var user;
 
-  Future<void> fetchListados() async {
+  Future<void> fetchUserListNames() async {
     user = await getUsername();
-    await bloc.fetchAllListados(user);
+    await bloc_user_list.fetchUserListNames(user);
   }
 
   @override
   void initState() {
     super.initState();
+
     //Trae solamente los nombres de los listados
-    fetchListados();
+    fetchUserListNames();
   }
 
   @override
   void dispose() {
-    bloc.dispose();
+    bloc_user_list.dispose();
     super.dispose();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder(
+    return StreamBuilder(
+
         //Estamos escuchando al stream,
         //cuando el valor sale afuera del stream largamos la lista por pantalla
-        stream: bloc.allListNames,
+        stream: bloc_user_list.userListNames,
         builder: (context, AsyncSnapshot<List<Listado>> snapshot) {
           if (snapshot.hasData) {
             //Aca largamos la lista a la pantalla
@@ -68,9 +63,8 @@ class ListadoComprasState extends State<ListadoCompras> {
           }
           return Center(child: CircularProgressIndicator());
         },
-      ),
-        floatingActionButton: FloatingActionButton.extended(onPressed: null, backgroundColor: Colors.blueAccent, icon: Icon(Icons.add), label: Text('Nuevo'))
-    );
+      );
+        //floatingActionButton: FloatingActionButton.extended(onPressed: null, backgroundColor: Colors.blueAccent, icon: Icon(Icons.add), label: Text('Nuevo'))
   }
 
   Widget buildList(AsyncSnapshot<List<Listado>> snapshot) {

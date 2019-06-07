@@ -27,7 +27,7 @@ class ListadoProvider {
 
 
   //Este es nuestro metodo para mandarle el usuario activo y que devuelva los nombres de los listados
-  Future<List<Listado>> fetchTodoListName(var user) async {
+  Future<List<Listado>> fetchUserListNames(var user) async {
     final response = await client.get(_url+"?username=$user");
     if (response.statusCode == 200) {
       print(response.body);
@@ -39,7 +39,7 @@ class ListadoProvider {
   }
 
   //Este es nuestro metodo para mandarle el id de la lista seleccionada y que devuelva los productos
-  Future<List<ListCategory>> fetchTodoListCategory(var id) async {
+  Future<List<ListCategory>> fetchListCategoryNames(var id) async {
     final response = await client.get(_urlCategory+"?idListado=$id");
     if (response.statusCode == 200) {
       print(response.body);
@@ -59,6 +59,19 @@ class ListadoProvider {
       throw new Exception('El listado no se borro!');
     }
   }
+
+  Future<bool> deleteUserList({
+    @required String idListado,
+  }) async {
+
+    await Future.delayed(Duration(seconds: 1));
+    final response = await client.post(_urlDeleteList+"?idListado=$idListado");
+    if (response.statusCode == 400) {
+      return false;
+    }
+    return true;
+  }
+
 
   //Para agregar el nombre de una lista de compra (PRIMERA TABLA)
   Future<List<Listado>> addList(nombre, selected, user) async {

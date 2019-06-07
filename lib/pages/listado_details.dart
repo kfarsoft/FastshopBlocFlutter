@@ -1,4 +1,8 @@
-import 'package:fastshop/blocs/home/listado_bloc.dart';
+import 'package:fastshop/bloc_widgets/bloc_state_builder.dart';
+import 'package:fastshop/blocs/listados/listado_bloc.dart';
+import 'package:fastshop/blocs/listados/listado_event.dart';
+import 'package:fastshop/blocs/listados/listado_state.dart';
+import 'package:fastshop/blocs/listados/listado_state_bloc.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +30,8 @@ class ListDetailState extends State<ListDetail> {
   final nombre;
   final idListado;
 
+  ListadoStateBloc _listadoStateBloc;
+
 
   ListDetailState({
     this.nombre,
@@ -34,46 +40,62 @@ class ListDetailState extends State<ListDetail> {
 
   @override
   void initState() {
-    //Trae los productos del listado seleccionado
-    blocCategoriesName.fetchAllCategories(idListado);
+    //Trae las categorias del listado seleccionado
+    bloc_user_list.fetchListCategories(idListado);
+    _listadoStateBloc = ListadoStateBloc();
     super.initState();
   }
 
   @override
   void dispose() {
-    blocCategoriesName.dispose();
+    bloc_user_list.dispose();
+    _listadoStateBloc?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return BlocEventStateBuilder<ListadoState>(
+        bloc: _listadoStateBloc,
+        builder: (BuildContext context, ListadoState state) {
+          if (state.isRunning) {
+            return _buildNormal(context);
+          } else if (state.isSuccess) {
+            return _buildSuccess();
+          } else if (state.isFailure) {
+            return _buildFailure();
+          }
+          return _buildNormal(context);
+        });
+
+  }
+
+  Widget _buildNormal(BuildContext context){
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        bottom: true,
-        child: Container(
+        body: Container(
           child: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
-                SliverAppBar(
-                  title: Text(nombre, style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-                  expandedHeight: 50.0,
+                new SliverAppBar(
+                  title: Text(nombre, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                  expandedHeight: 5.0,
                   floating: false,
-                  backgroundColor: Colors.blueAccent,
-                  pinned: true,
+                  backgroundColor: Colors.blue,
+                  pinned: false,
                   elevation: 0.0,
                 ),
               ];
             },
             body: StreamBuilder(
-              stream: blocCategoriesName.allTodoProductos,
+              //El stream que contiene las categorias del listado ya seleccionado
+              stream: bloc_user_list.listCategoryName,
               builder: (context,
-                  AsyncSnapshot<List<ListCategory>> snapshotProducts) {
-                if (snapshotProducts.hasData) {
-                  return buildList(snapshotProducts);
+                  AsyncSnapshot<List<ListCategory>> snapshot) {
+                if (snapshot.hasData) {
+                  return buildList(snapshot);
                 }
-                else if (snapshotProducts.hasError) {
-                  return Text('Error es:${snapshotProducts.error}');
+                else if (snapshot.hasError) {
+                  return Text('Error es:${snapshot.error}');
                 }
                 return Center(child: CircularProgressIndicator());
               },
@@ -81,22 +103,51 @@ class ListDetailState extends State<ListDetail> {
           ),
           margin: new EdgeInsets.only(bottom: 10.0),
         ),
-      ),
         floatingActionButton: FloatingActionButton.extended(onPressed: (){deleteList();}, backgroundColor: Colors.red, icon: Icon(Icons.delete), label: Text('Eliminar'))
     );
   }
 
 
-  Widget buildList(AsyncSnapshot<List<ListCategory>> snapshotProducts) {
+  Widget buildList(AsyncSnapshot<List<ListCategory>> snapshot) {
     return ListView.builder(
-        itemCount: snapshotProducts.data.length,
+        itemCount: snapshot.data.length,
         itemBuilder: (BuildContext context, int index) {
           return new Container(
             child: ListTile(
-              title: Text(snapshotProducts.data[index].descripcion),
+              title: Text(snapshot.data[index].descripcion),
             ),
           );
         }
+    );
+  }
+
+  Widget _buildSuccess() {
+    return AlertDialog(
+      title: Text('Exitoso'),
+      content: const Text('El listado se ha eliminado con exito'),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFailure() {
+    return AlertDialog(
+      title: Text('Error'),
+      content: const Text('Error en la eliminacion del listado'),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 
@@ -111,18 +162,9 @@ class ListDetailState extends State<ListDetail> {
           actions: <Widget>[
             FlatButton(
               child: const Text('Si'),
-              onPressed: ()async {/*
-                await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) {
-                    return DeleteList(
-                        name: nombre,
-                        idListado: idListado,
-                        loginBloc: _loginBloc
-                    );
-                  }),);*/
-                bloc.deleteListById(idListado);
-                Navigator.of(context).pop(Navigator.pop(context));
-
+              onPressed: ()async {
+                _deleteListById(idListado);
+                Navigator.of(context).pop(context);
               },
             ),
             FlatButton(
@@ -135,5 +177,14 @@ class ListDetailState extends State<ListDetail> {
         );
       },
     );
+  }
+
+  void _deleteListById(idListado) {
+    _listadoStateBloc.emitEvent(ListadoEvent(
+      event: ListadoEventType.working,
+      idList: idListado
+    ));
+
+    //bloc_user_list.deleteListById(idListado);
   }
 }

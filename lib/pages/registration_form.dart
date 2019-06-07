@@ -58,14 +58,32 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   Widget _buildSuccess() {
-    return Center(
-      child: Text('Exitoso'),
+    return AlertDialog(
+      title: Text('Exitoso'),
+      content: const Text('El usuario ha sido registrado'),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 
   Widget _buildFailure() {
-    return Center(
-      child: Text('Error'),
+    return AlertDialog(
+      title: Text('Error'),
+      content: const Text('Error en la creacion del usuario'),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('Ok'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 
