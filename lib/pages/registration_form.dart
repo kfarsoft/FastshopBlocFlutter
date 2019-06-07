@@ -111,60 +111,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 );
               }),
 
-          /*//NAME
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.name,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 60.0,
-                  child: ListTile(
-                    //leading: const Icon(Icons.person),
-                    title: TextField(
-                      decoration: new InputDecoration(
-                        labelText: 'Nombre',
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
-                        ),
-                        errorText: snapshot.error,
-                      ),
-                      controller: _nameController,
-                      onChanged: _registrationFormBloc.onNameChanged,
-                      keyboardType: TextInputType.text,
-                    ),
-                  ),
-                );
-              }),
-
-          //LASTNAME
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.lastname,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 60.0,
-                  child: ListTile(
-                    //leading: const Icon(Icons.person_outline),
-                    title: TextField(
-                      decoration: new InputDecoration(
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
-                        ),
-                        labelText: 'Apellido',
-                        errorText: snapshot.error,
-                      ),
-                      controller: _lastnameController,
-                      onChanged: _registrationFormBloc.onLastnameChanged,
-                      keyboardType: TextInputType.text,
-                    ),
-                  ),
-                );
-              }),*/
-
           //EMAIL
           StreamBuilder<String>(
               stream: _registrationFormBloc.email,
@@ -245,27 +191,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   ),
                 );
               }),
-/*
-          //DOCUMENT
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.doc,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 60.0,
-                  child: ListTile(
-                    leading: const Icon(Icons.date_range),
-                    title: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Documento',
-                        errorText: snapshot.error,
-                      ),
-                      controller: _docController,
-                      onChanged: _registrationFormBloc.onDocChanged,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                );
-              }),*/
 
           //FORM BLOC
           StreamBuilder<bool>(
@@ -285,10 +210,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 _registrationBloc.emitEvent(RegistrationEvent(
                                     event: RegistrationEventType.working,
                                     username: _usernameController.text,
-                                    //name: _nameController.text,
-                                    //lastname: _lastnameController.text,
                                     email: _emailController.text,
-                                    password: _lastnameController.text));
+                                    password: _passController.text));
                               }
                             : null,
                       ),
@@ -314,11 +237,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   void _clearForm(){
     _usernameController.clear();
-    _nameController.clear();
-    _lastnameController.clear();
     _emailController.clear();
     _passController.clear();
     _passRetypeController.clear();
-    _docController.clear();
   }
 }
