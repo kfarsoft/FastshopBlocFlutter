@@ -102,7 +102,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         return new Container(
                           height: 100.0,
                           child: new ListTile(
-                            //leading: const Icon(Icons.account_circle),
+                            leading: const Icon(Icons.account_circle),
                             title: TextField(
                               decoration: new InputDecoration(
                                 labelText: 'Usuario',
@@ -129,7 +129,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         return new Container(
                           height: 100.0,
                           child: ListTile(
-                            //leading: const Icon(Icons.email),
+                            leading: const Icon(Icons.email),
                             title: TextField(
                               decoration: new InputDecoration(
                                 fillColor: Colors.white,
@@ -156,7 +156,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         return new Container(
                           height: 100.0,
                           child: ListTile(
-                            //leading: const Icon(Icons.remove_red_eye),
+                            leading: const Icon(Icons.remove_red_eye),
                             title: TextField(
                               decoration: new InputDecoration(
                                 fillColor: Colors.white,
@@ -183,7 +183,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         return new Container(
                           height: 100.0,
                           child: ListTile(
-                            //leading: const Icon(Icons.remove_red_eye),
+                            leading: const Icon(Icons.repeat),
                             title: TextField(
                               decoration: new InputDecoration(
                                 fillColor: Colors.white,
