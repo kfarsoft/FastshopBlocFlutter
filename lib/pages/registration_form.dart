@@ -79,158 +79,173 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   Widget _buildForm() {
-    return Form(
-      child: Column(
-        children: <Widget>[
-
-          new SizedBox(height: 4),
-          //USERNAME
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.username,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 100.0,
-                  child: new ListTile(
-                    //leading: const Icon(Icons.account_circle),
-                    title: TextField(
-                      decoration: new InputDecoration(
-                        labelText: 'Usuario',
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
+    return Scaffold(
+      resizeToAvoidBottomInset : true,
+      appBar: AppBar(
+        title: Text('Fastshop - Registrate'),
+      ),
+      body: new Form(
+        child: Container(
+          constraints: new BoxConstraints.expand(),
+          padding: EdgeInsets.only(top: 10.0,left: 10.0,right: 10.0),
+          child: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new SizedBox(height: 20),
+                  //USERNAME
+                  StreamBuilder<String>(
+                      stream: _registrationFormBloc.username,
+                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                        return new Container(
+                          height: 100.0,
+                          child: new ListTile(
+                            //leading: const Icon(Icons.account_circle),
+                            title: TextField(
+                              decoration: new InputDecoration(
+                                labelText: 'Usuario',
+                                fillColor: Colors.white,
+                                border: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(25.0),
+                                  borderSide: new BorderSide(
+                                  ),
+                                ),
+                                errorText: snapshot.error,
+                              ),
+                              controller: _usernameController,
+                              onChanged: _registrationFormBloc.onUsernameChanged,
+                              keyboardType: TextInputType.text,
+                            ),
                           ),
-                        ),
-                        errorText: snapshot.error,
-                      ),
-                      controller: _usernameController,
-                      onChanged: _registrationFormBloc.onUsernameChanged,
-                      keyboardType: TextInputType.text,
-                    ),
-                  ),
-                );
-              }),
+                        );
+                      }),
 
-          //EMAIL
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.email,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 100.0,
-                  child: ListTile(
-                    //leading: const Icon(Icons.email),
-                    title: TextField(
-                      decoration: new InputDecoration(
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
+                  //EMAIL
+                  StreamBuilder<String>(
+                      stream: _registrationFormBloc.email,
+                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                        return new Container(
+                          height: 100.0,
+                          child: ListTile(
+                            //leading: const Icon(Icons.email),
+                            title: TextField(
+                              decoration: new InputDecoration(
+                                fillColor: Colors.white,
+                                border: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(25.0),
+                                  borderSide: new BorderSide(
+                                  ),
+                                ),
+                                labelText: 'Email',
+                                errorText: snapshot.error,
+                              ),
+                              controller: _emailController,
+                              onChanged: _registrationFormBloc.onEmailChanged,
+                              keyboardType: TextInputType.emailAddress,
+                            ),
                           ),
-                        ),
-                        labelText: 'Email',
-                        errorText: snapshot.error,
-                      ),
-                      controller: _emailController,
-                      onChanged: _registrationFormBloc.onEmailChanged,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                  ),
-                );
-              }),
+                        );
+                      }),
 
-          //PASSWORD
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.password,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 100.0,
-                  child: ListTile(
-                    //leading: const Icon(Icons.remove_red_eye),
-                    title: TextField(
-                      decoration: new InputDecoration(
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
+                  //PASSWORD
+                  StreamBuilder<String>(
+                      stream: _registrationFormBloc.password,
+                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                        return new Container(
+                          height: 100.0,
+                          child: ListTile(
+                            //leading: const Icon(Icons.remove_red_eye),
+                            title: TextField(
+                              decoration: new InputDecoration(
+                                fillColor: Colors.white,
+                                border: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(25.0),
+                                  borderSide: new BorderSide(
+                                  ),
+                                ),
+                                labelText: 'Contraseña',
+                                errorText: snapshot.error,
+                              ),
+                              controller: _passController,
+                              obscureText: true,
+                              onChanged: _registrationFormBloc.onPasswordChanged,
+                            ),
                           ),
-                        ),
-                        labelText: 'Contraseña',
-                        errorText: snapshot.error,
-                      ),
-                      controller: _passController,
-                      obscureText: true,
-                      onChanged: _registrationFormBloc.onPasswordChanged,
-                    ),
-                  ),
-                );
-              }),
+                        );
+                      }),
 
-          //RETYPE PASSWORD
-          StreamBuilder<String>(
-              stream: _registrationFormBloc.confirmPassword,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return new Container(
-                  height: 100.0,
-                  child: ListTile(
-                    //leading: const Icon(Icons.remove_red_eye),
-                    title: TextField(
-                      decoration: new InputDecoration(
-                        fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
+                  //RETYPE PASSWORD
+                  StreamBuilder<String>(
+                      stream: _registrationFormBloc.confirmPassword,
+                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                        return new Container(
+                          height: 100.0,
+                          child: ListTile(
+                            //leading: const Icon(Icons.remove_red_eye),
+                            title: TextField(
+                              decoration: new InputDecoration(
+                                fillColor: Colors.white,
+                                border: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(25.0),
+                                  borderSide: new BorderSide(
+                                  ),
+                                ),
+                                labelText: 'Repita contraseña',
+                                errorText: snapshot.error,
+                              ),
+                              controller: _passRetypeController,
+                              obscureText: true,
+                              onChanged: _registrationFormBloc.onRetypePasswordChanged,
+                            ),
                           ),
-                        ),
-                        labelText: 'Repita contraseña',
-                        errorText: snapshot.error,
-                      ),
-                      controller: _passRetypeController,
-                      obscureText: true,
-                      onChanged: _registrationFormBloc.onRetypePasswordChanged,
-                    ),
-                  ),
-                );
-              }),
+                        );
+                      }),
 
-          //FORM BLOC
-          StreamBuilder<bool>(
-              stream: _registrationFormBloc.registerValid,
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                return new ButtonTheme.bar(
-                  child: new ButtonBar(
-                    children: <Widget>[
-                      new SizedBox(
-                        height: 48.0,
-                        child: new RaisedButton(
-                        child: Text('Registrar'),
-                        color: Colors.white,
-                        elevation: 4.0,
-                        onPressed: (snapshot.hasData && snapshot.data == true)
-                            ? () {
-                                _registrationBloc.emitEvent(RegistrationEvent(
-                                    event: RegistrationEventType.working,
-                                    username: _usernameController.text,
-                                    email: _emailController.text,
-                                    password: _passController.text));
-                              }
-                            : null,
+                  //FORM BLOC
+                  StreamBuilder<bool>(
+                      stream: _registrationFormBloc.registerValid,
+                      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        return new ButtonTheme.bar(
+                          child: new ButtonBar(
+                            children: <Widget>[
+                              new SizedBox(
+                                height: 48.0,
+                                child: new RaisedButton(
+                                child: const Text("Registrar", textScaleFactor: 1.5),
+                                color: Colors.white,
+                                elevation: 4.0,
+                                onPressed: (snapshot.hasData && snapshot.data == true)
+                                    ? () {
+                                        _registrationBloc.emitEvent(RegistrationEvent(
+                                            event: RegistrationEventType.working,
+                                            username: _usernameController.text,
+                                            email: _emailController.text,
+                                            password: _passController.text));
+                                      }
+                                    : null,
+                              ),
+                            ),
+                              new SizedBox(
+                                height: 48.0,
+                                child:new RaisedButton(
+                                  child: const Text("Borrar", textScaleFactor: 1.5),
+                                  color: Colors.white,
+                                  onPressed: () {_clearForm();},
+                                  elevation: 4.0,
+                                ),
+                              ),
+                            ]
+                          ),
+                        );
+                      }
                       ),
-                    ),
-                      new SizedBox(
-                        height: 48.0,
-                        child:new RaisedButton(
-                          child: const Text("Borrar", textScaleFactor: 1.5),
-                          color: Colors.white,
-                          onPressed: () {_clearForm();},
-                          elevation: 4.0,
-                        ),
-                      ),
-                    ]
-                  ),
-                );
-              }
+                ],
               ),
-        ],
+            ),
+          ),
+        ),
       ),
     );
   }
