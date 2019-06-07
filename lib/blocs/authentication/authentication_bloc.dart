@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fastshop/functions/saveLogout.dart';
 import 'package:meta/meta.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:fastshop/bloc_helpers/bloc_event_state.dart';
@@ -27,7 +28,7 @@ class AuthenticationBloc
 
       // Simulate a call to the authentication server
       try {
-        final token = await userRepository.authenticate(
+         await userRepository.authenticate(
           username: event.username,
           password: event.password,
         );
@@ -40,6 +41,9 @@ class AuthenticationBloc
     }
 
     if (event is AuthenticationEventLogout){
+
+      saveLogout();
+
       yield AuthenticationState.notAuthenticated();
     }
   }

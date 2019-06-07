@@ -1,21 +1,17 @@
 
 class Cliente {
 
-  String username;
-  String idCliente;
-  String email;
-  String password;
-  String name;
-  String token;
+  final String username;
+  final String token;
+  final String idCliente;
 
-  Cliente();
+  Cliente(this.username, this.token, this.idCliente);
 
-  Cliente.empty(){
-    this.email = "";
-    this.password = "";
-    this.name = "";
+  /*Cliente.empty(){
+    this.username = "";
+    this.token = "";
     this.idCliente = "";
-  }
+  }*/
 
   String getId(){
     return idCliente;
@@ -23,7 +19,13 @@ class Cliente {
 
   Cliente.fromJson(Map<String, dynamic> json)
     : username = json["username"],
-      name = json["nombre"],
       idCliente = json["idCliente"],
-      token = json["jwt"];
+      token = json["token"];
+
+  Map<String, dynamic> toJson() =>
+      {
+        'username': username,
+        'idCliente': idCliente,
+        'token': token,
+      };
 }

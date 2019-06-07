@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:fastshop/connection.dart';
+import 'package:fastshop/functions/saveCurrentLogin.dart';
 import 'package:fastshop/models/cliente.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
@@ -9,10 +10,8 @@ class UserRepository {
   final String _url = 'http://' + con.getUrl() + '/api/login.php';
   final String _url2 = 'http://' + con.getUrl() + '/api/signup.php';
   var headers = {"accept" : "application/json"};
-  Cliente client;
-  //final _storage = new FlutterSecureStorage();
 
-  Future<String> authenticate({
+  Future<Cliente> authenticate({
     @required String username,
     @required String password,
   }) async {
@@ -24,12 +23,17 @@ class UserRepository {
     };
 
     await Future.delayed(Duration(seconds: 1));
+
     final response = await http.post(_url, body: jsonEncode(body), headers: headers);
+
       if (response.statusCode == 200) {
         Map userMap = jsonDecode(response.body);
-        client = Cliente.fromJson(userMap);
-        return '${client.token}';
+        //var client = new Cliente.fromJson(userMap);
+        saveCurrentLogin(userMap);
+        return Cliente.fromJson(userMap);
       }else{
+        final responseJson = json.decode(response.body);
+        saveCurrentLogin(responseJson);
         //Con esta exepcion no permitimos que se inicie sesion permitiendonos mostrar el mensaje de Usuario o contraseña invalido
         throw new Exception("No se pudo loguear!");
       }

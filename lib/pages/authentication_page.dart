@@ -7,28 +7,65 @@ import 'package:fastshop/blocs/authentication/authentication_event.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';
 import 'package:fastshop/widgets/pending_action.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthenticationPage extends StatelessWidget {
+class AuthenticationPage extends StatelessWidget{
+
+  Future<bool> _onWillPopScope() async {
+    return false;
+  }
+  build(context){
+    return WillPopScope(
+      onWillPop: _onWillPopScope,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Fastshop - Iniciar Sesion'),
+          leading: Container(),
+        ),
+        resizeToAvoidBottomPadding: false,
+        body: Center(
+          child: AuthenticationPageLogin(),
+        ),
+      ),
+    );
+  }
+}
+
+class AuthenticationPageLogin extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new AuthenticationPageLoginState();
+  }
+}
+
+class AuthenticationPageLoginState extends State<AuthenticationPageLogin> {
   ///
   /// Prevents the use of the "back" button
   ///
   Future<bool> _onWillPopScope() async {
     return false;
   }
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _saveCurrentRoute("/loginScreen");
+  }
+
+  _saveCurrentRoute(String lastRoute) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString('LastScreenRoute', lastRoute);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     AuthenticationBloc bloc = BlocProvider.of<AuthenticationBloc>(context);
-    return WillPopScope(
-      onWillPop: _onWillPopScope,
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text('Fastshop - Iniciar Sesion'),
-          leading: Container(),
-        ),
-        body: Container(
+
+    return Container(
           child:
               BlocEventStateBuilder<AuthenticationState>(
             bloc: bloc,
@@ -40,7 +77,7 @@ class AuthenticationPage extends StatelessWidget {
               if (state.isAuthenticated){
                 return Container();
               }
-              
+
               List<Widget> children = <Widget>[];
 
               // Button to fake the authentication (success)
@@ -122,8 +159,6 @@ class AuthenticationPage extends StatelessWidget {
               );
             },
           ),
-        ),
-      ),
-    );
+        );
   }
 }

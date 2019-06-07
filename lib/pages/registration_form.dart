@@ -12,18 +12,26 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
+  TextEditingController _usernameController;
+  TextEditingController _nameController;
+  TextEditingController _lastnameController;
   TextEditingController _emailController;
-  TextEditingController _passwordController;
-  TextEditingController _retypeController;
+  TextEditingController _passController;
+  TextEditingController _passRetypeController;
+  TextEditingController _docController;
   RegistrationFormBloc _registrationFormBloc;
   RegistrationBloc _registrationBloc;
 
   @override
   void initState() {
     super.initState();
+    _usernameController = TextEditingController();
+    _nameController = TextEditingController();
+    _lastnameController = TextEditingController();
     _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _retypeController = TextEditingController();
+    _passController = TextEditingController();
+    _passRetypeController = TextEditingController();
+    _docController = TextEditingController();
     _registrationFormBloc = RegistrationFormBloc();
     _registrationBloc = RegistrationBloc();
   }
@@ -32,9 +40,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
   void dispose() {
     _registrationBloc?.dispose();
     _registrationFormBloc?.dispose();
+    _usernameController?.dispose();
+    _nameController?.dispose();
+    _lastnameController?.dispose();
     _emailController?.dispose();
-    _passwordController?.dispose();
-    _retypeController?.dispose();
+    _passController?.dispose();
+    _passRetypeController?.dispose();
+    _docController?.dispose();
     super.dispose();
   }
 
@@ -56,13 +68,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   Widget _buildSuccess() {
     return Center(
-      child: Text('Success'),
+      child: Text('Exitoso'),
     );
   }
 
   Widget _buildFailure() {
     return Center(
-      child: Text('Failure'),
+      child: Text('Error'),
     );
   }
 
@@ -70,62 +82,207 @@ class _RegistrationFormState extends State<RegistrationForm> {
     return Form(
       child: Column(
         children: <Widget>[
+
+          //USERNAME
+          StreamBuilder<String>(
+              stream: _registrationFormBloc.username,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                return new Container(
+                  height: 60.0,
+                  child: new ListTile(
+                    leading: const Icon(Icons.account_circle),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Usuario',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _usernameController,
+                      onChanged: _registrationFormBloc.onUsernameChanged,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                );
+              }),
+
+          //NAME
+          StreamBuilder<String>(
+              stream: _registrationFormBloc.name,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                return new Container(
+                  height: 60.0,
+                  child: ListTile(
+                      leading: const Icon(Icons.person),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Nombre',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _nameController,
+                      onChanged: _registrationFormBloc.onNameChanged,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                );
+              }),
+
+          //LASTNAME
+          StreamBuilder<String>(
+              stream: _registrationFormBloc.lastname,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                return new Container(
+                  height: 60.0,
+                  child: ListTile(
+                    leading: const Icon(Icons.person_outline),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Apellido',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _lastnameController,
+                      onChanged: _registrationFormBloc.onLastnameChanged,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                );
+              }),
+
+          //EMAIL
           StreamBuilder<String>(
               stream: _registrationFormBloc.email,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return TextField(
-                  decoration: InputDecoration(
-                    labelText: 'email',
-                    errorText: snapshot.error,
+                return new Container(
+                  height: 60.0,
+                  child: ListTile(
+                    leading: const Icon(Icons.email),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _emailController,
+                      onChanged: _registrationFormBloc.onEmailChanged,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
                   ),
-                  controller: _emailController,
-                  onChanged: _registrationFormBloc.onEmailChanged,
-                  keyboardType: TextInputType.emailAddress,
                 );
               }),
+
+          //PASSWORD
           StreamBuilder<String>(
               stream: _registrationFormBloc.password,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return TextField(
-                  decoration: InputDecoration(
-                    labelText: 'password',
-                    errorText: snapshot.error,
+                return new Container(
+                  height: 60.0,
+                  child: ListTile(
+                    leading: const Icon(Icons.remove_red_eye),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Contraseña',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _passController,
+                      obscureText: false,
+                      onChanged: _registrationFormBloc.onPasswordChanged,
+                    ),
                   ),
-                  controller: _passwordController,
-                  obscureText: false,
-                  onChanged: _registrationFormBloc.onPasswordChanged,
                 );
               }),
+
+          //RETYPE PASSWORD
           StreamBuilder<String>(
               stream: _registrationFormBloc.confirmPassword,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                return TextField(
-                  decoration: InputDecoration(
-                    labelText: 'retype password',
-                    errorText: snapshot.error,
+                return new Container(
+                  height: 60.0,
+                  child: ListTile(
+                    leading: const Icon(Icons.remove_red_eye),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Repita contraseña',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _passRetypeController,
+                      obscureText: false,
+                      onChanged: _registrationFormBloc.onRetypePasswordChanged,
+                    ),
                   ),
-                  controller: _retypeController,
-                  obscureText: false,
-                  onChanged: _registrationFormBloc.onRetypePasswordChanged,
                 );
               }),
+
+          //DOCUMENT
+          StreamBuilder<String>(
+              stream: _registrationFormBloc.doc,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                return new Container(
+                  height: 60.0,
+                  child: ListTile(
+                    leading: const Icon(Icons.date_range),
+                    title: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Documento',
+                        errorText: snapshot.error,
+                      ),
+                      controller: _docController,
+                      onChanged: _registrationFormBloc.onDocChanged,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                );
+              }),
+
+          //FORM BLOC
           StreamBuilder<bool>(
               stream: _registrationFormBloc.registerValid,
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                return RaisedButton(
-                  child: Text('Register'),
-                  onPressed: (snapshot.hasData && snapshot.data == true)
-                      ? () {
-                          _registrationBloc.emitEvent(RegistrationEvent(
-                              event: RegistrationEventType.working,
-                              email: _emailController.text,
-                              password: _passwordController.text));
-                        }
-                      : null,
+                return new ButtonTheme.bar(
+                  child: new ButtonBar(
+                    children: <Widget>[
+                      new SizedBox(
+                        height: 48.0,
+                        child: new RaisedButton(
+                        child: Text('Registrar'),
+                        color: Colors.white,
+                        elevation: 4.0,
+                        onPressed: (snapshot.hasData && snapshot.data == true)
+                            ? () {
+                                _registrationBloc.emitEvent(RegistrationEvent(
+                                    event: RegistrationEventType.working,
+                                    username: _usernameController.text,
+                                    name: _nameController.text,
+                                    lastname: _lastnameController.text,
+                                    email: _emailController.text,
+                                    password: _lastnameController.text,
+                                    doc: _docController.text));
+                              }
+                            : null,
+                      ),
+                    ),
+                      new SizedBox(
+                        height: 48.0,
+                        child:new RaisedButton(
+                          child: const Text("Borrar", textScaleFactor: 1.5),
+                          color: Colors.white,
+                          onPressed: () {_clearForm();},
+                          elevation: 4.0,
+                        ),
+                      ),
+                    ]
+                  ),
                 );
-              }),
+              }
+              ),
         ],
       ),
     );
+  }
+
+  void _clearForm(){
+    _usernameController.clear();
+    _nameController.clear();
+    _lastnameController.clear();
+    _emailController.clear();
+    _passController.clear();
+    _passRetypeController.clear();
+    _docController.clear();
   }
 }

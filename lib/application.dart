@@ -2,6 +2,7 @@ import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
 import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
+import 'package:fastshop/pages/authentication_page.dart';
 import 'package:fastshop/pages/cart_page.dart';
 import 'package:fastshop/pages/decision_page.dart';
 import 'package:fastshop/pages/initialization_page.dart';
@@ -32,6 +33,7 @@ class Application extends StatelessWidget {
             {
               '/decision': (BuildContext context) => DecisionPage(userRepository: userRepository,),
               '/register': (BuildContext context) => RegistrationPage(),
+              '/loginScreen': (BuildContext context) => AuthenticationPage(),
               '/shoppingBasket': (BuildContext context) => BlocCartPage(),
             },
             home: InitializationPage(),

@@ -6,14 +6,14 @@ class AuthenticationState extends BlocState {
     @required this.isAuthenticated,
     this.isAuthenticating: false,
     this.hasFailed: false,
-    this.name: '',
+    this.username: '',
   });
 
   final bool isAuthenticated;
   final bool isAuthenticating;
   final bool hasFailed;
 
-  final String name;
+  final String username;
   
   factory AuthenticationState.notAuthenticated() {
     return AuthenticationState(
@@ -21,10 +21,10 @@ class AuthenticationState extends BlocState {
     );
   }
 
-  factory AuthenticationState.authenticated(String name) {
+  factory AuthenticationState.authenticated(String username) {
     return AuthenticationState(
       isAuthenticated: true,
-      name: name,
+      username: username,
     );
   }
 

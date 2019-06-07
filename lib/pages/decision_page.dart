@@ -23,7 +23,7 @@ class DecisionPage extends StatefulWidget {
 
 class DecisionPageState extends State<DecisionPage> {
   AuthenticationState oldAuthenticationState;
-  UserRepository get _userRepository => widget.userRepository;
+  //UserRepository get _userRepository => widget.userRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DecisionPageState extends State<DecisionPage> {
           oldAuthenticationState = state;
 
           if (state.isAuthenticated){
-            _redirectToPage(context, HomePage(user: _userRepository.client.username));
+            _redirectToPage(context, HomePage());
           } else if (state.isAuthenticating || state.hasFailed){
   //do nothing
           } else {

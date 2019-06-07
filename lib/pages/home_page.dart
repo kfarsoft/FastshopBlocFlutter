@@ -1,30 +1,42 @@
 import 'dart:async';
-
-import 'package:fastshop/pages/shopping_page.dart';
+import 'package:fastshop/functions/getUsername.dart';
+import 'package:fastshop/pages/listado_compras.dart' as LisCom;
+import 'package:fastshop/pages/promociones_vigentes.dart' as ProVig;
+import 'package:fastshop/pages/productos_page.dart' as ProFav;
+import 'package:fastshop/pages/mis_gastos.dart' as MisGas;
 import 'package:fastshop/widgets/log_out_button.dart';
-import 'package:fastshop/widgets/shopping_basket.dart';
-import 'package:fastshop/widgets/shopping_basket_price.dart';
 import 'package:flutter/material.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomePage extends StatefulWidget {
-  var user;
-  HomePage({this.user});
+
   @override
-  HomePageSample createState() => new HomePageSample(user: user);
+  HomePageSample createState() => new HomePageSample();
 }
 
 class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
 
   TabController controller;
+
   var user;
-  HomePageSample({this.user});
+  Future<void> _getUsername() async {
+    user = await getUsername();
+  }
 
   @override
   void initState() {
     super.initState();
     controller = new TabController(vsync: this, length: 4);
+    _saveCurrentRoute("/HomeScreen");
+    _getUsername();
   }
+
+  _saveCurrentRoute(String lastRoute) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString('LastScreenRoute', lastRoute);
+  }
+
 
   @override
   void dispose() {
@@ -43,7 +55,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
       onWillPop: _onWillPopScope,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Bienvenido: ${this.user}'),
+          title: Text('Bienvenido $user'),
           leading: Container(),
           actions: <Widget>[
             LogOutButton(),
@@ -59,10 +71,27 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
               ]
           ),
         ),
-        body: Container(
+        body: new TabBarView(
+            controller: controller,
+            children: <Widget>[
+              new ProVig.PromoVigentes(),
+              new LisCom.LisCompra(),
+              new ProFav.ProductosPage(),
+              new MisGas.MisGastos()
+            ]
+        )
+      ),
+    );
+  }
+}
+
+
+
+/*
+Container(
           child: Column(
             children: <Widget>[
-              
+
               ListTile(
                 title: RaisedButton(
                   child: Text('Shopping'),
@@ -99,7 +128,4 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
             ],
           ),
         ),
-      ),
-    );
-  }
-}
+ */
