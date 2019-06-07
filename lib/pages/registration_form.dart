@@ -83,17 +83,24 @@ class _RegistrationFormState extends State<RegistrationForm> {
       child: Column(
         children: <Widget>[
 
+          new SizedBox(height: 4),
           //USERNAME
           StreamBuilder<String>(
               stream: _registrationFormBloc.username,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 return new Container(
-                  height: 60.0,
+                  height: 100.0,
                   child: new ListTile(
-                    leading: const Icon(Icons.account_circle),
+                    //leading: const Icon(Icons.account_circle),
                     title: TextField(
-                      decoration: InputDecoration(
+                      decoration: new InputDecoration(
                         labelText: 'Usuario',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         errorText: snapshot.error,
                       ),
                       controller: _usernameController,
@@ -104,17 +111,23 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 );
               }),
 
-          //NAME
+          /*//NAME
           StreamBuilder<String>(
               stream: _registrationFormBloc.name,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 return new Container(
                   height: 60.0,
                   child: ListTile(
-                      leading: const Icon(Icons.person),
+                    //leading: const Icon(Icons.person),
                     title: TextField(
-                      decoration: InputDecoration(
+                      decoration: new InputDecoration(
                         labelText: 'Nombre',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         errorText: snapshot.error,
                       ),
                       controller: _nameController,
@@ -132,9 +145,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 return new Container(
                   height: 60.0,
                   child: ListTile(
-                    leading: const Icon(Icons.person_outline),
+                    //leading: const Icon(Icons.person_outline),
                     title: TextField(
-                      decoration: InputDecoration(
+                      decoration: new InputDecoration(
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         labelText: 'Apellido',
                         errorText: snapshot.error,
                       ),
@@ -144,18 +163,24 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     ),
                   ),
                 );
-              }),
+              }),*/
 
           //EMAIL
           StreamBuilder<String>(
               stream: _registrationFormBloc.email,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 return new Container(
-                  height: 60.0,
+                  height: 100.0,
                   child: ListTile(
-                    leading: const Icon(Icons.email),
+                    //leading: const Icon(Icons.email),
                     title: TextField(
-                      decoration: InputDecoration(
+                      decoration: new InputDecoration(
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         labelText: 'Email',
                         errorText: snapshot.error,
                       ),
@@ -172,16 +197,22 @@ class _RegistrationFormState extends State<RegistrationForm> {
               stream: _registrationFormBloc.password,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 return new Container(
-                  height: 60.0,
+                  height: 100.0,
                   child: ListTile(
-                    leading: const Icon(Icons.remove_red_eye),
+                    //leading: const Icon(Icons.remove_red_eye),
                     title: TextField(
-                      decoration: InputDecoration(
+                      decoration: new InputDecoration(
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         labelText: 'Contraseña',
                         errorText: snapshot.error,
                       ),
                       controller: _passController,
-                      obscureText: false,
+                      obscureText: true,
                       onChanged: _registrationFormBloc.onPasswordChanged,
                     ),
                   ),
@@ -193,22 +224,28 @@ class _RegistrationFormState extends State<RegistrationForm> {
               stream: _registrationFormBloc.confirmPassword,
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 return new Container(
-                  height: 60.0,
+                  height: 100.0,
                   child: ListTile(
-                    leading: const Icon(Icons.remove_red_eye),
+                    //leading: const Icon(Icons.remove_red_eye),
                     title: TextField(
-                      decoration: InputDecoration(
+                      decoration: new InputDecoration(
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         labelText: 'Repita contraseña',
                         errorText: snapshot.error,
                       ),
                       controller: _passRetypeController,
-                      obscureText: false,
+                      obscureText: true,
                       onChanged: _registrationFormBloc.onRetypePasswordChanged,
                     ),
                   ),
                 );
               }),
-
+/*
           //DOCUMENT
           StreamBuilder<String>(
               stream: _registrationFormBloc.doc,
@@ -228,7 +265,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     ),
                   ),
                 );
-              }),
+              }),*/
 
           //FORM BLOC
           StreamBuilder<bool>(
@@ -248,11 +285,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 _registrationBloc.emitEvent(RegistrationEvent(
                                     event: RegistrationEventType.working,
                                     username: _usernameController.text,
-                                    name: _nameController.text,
-                                    lastname: _lastnameController.text,
+                                    //name: _nameController.text,
+                                    //lastname: _lastnameController.text,
                                     email: _emailController.text,
-                                    password: _lastnameController.text,
-                                    doc: _docController.text));
+                                    password: _lastnameController.text));
                               }
                             : null,
                       ),
