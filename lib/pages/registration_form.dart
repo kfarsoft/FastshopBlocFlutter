@@ -13,12 +13,9 @@ class RegistrationForm extends StatefulWidget {
 
 class _RegistrationFormState extends State<RegistrationForm> {
   TextEditingController _usernameController;
-  TextEditingController _nameController;
-  TextEditingController _lastnameController;
   TextEditingController _emailController;
   TextEditingController _passController;
   TextEditingController _passRetypeController;
-  TextEditingController _docController;
   RegistrationFormBloc _registrationFormBloc;
   RegistrationBloc _registrationBloc;
 
@@ -26,12 +23,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
   void initState() {
     super.initState();
     _usernameController = TextEditingController();
-    _nameController = TextEditingController();
-    _lastnameController = TextEditingController();
     _emailController = TextEditingController();
     _passController = TextEditingController();
     _passRetypeController = TextEditingController();
-    _docController = TextEditingController();
     _registrationFormBloc = RegistrationFormBloc();
     _registrationBloc = RegistrationBloc();
   }
@@ -41,12 +35,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
     _registrationBloc?.dispose();
     _registrationFormBloc?.dispose();
     _usernameController?.dispose();
-    _nameController?.dispose();
-    _lastnameController?.dispose();
     _emailController?.dispose();
     _passController?.dispose();
     _passRetypeController?.dispose();
-    _docController?.dispose();
     super.dispose();
   }
 

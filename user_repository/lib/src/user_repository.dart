@@ -41,21 +41,15 @@ class UserRepository {
 
   Future<bool> signup({
     @required String username,
-    @required String apellido,
     @required String email,
-    @required String nombre,
     @required String password,
-    @required String nroDoc,
   }) async {
 
     //Creamos el body para mandar por POST
     Map<String, String> body = {
       'username': username,
-      'apellido': apellido,
       'email': email,
-      'nombre': nombre,
       'password': password,
-      'nroDoc': nroDoc,
     };
 
     await Future.delayed(Duration(seconds: 1));
