@@ -5,11 +5,13 @@ class ListadoState extends BlocState {
     this.isRunning: false,
     this.isSuccess: false,
     this.isFailure: false,
+    this.isSavingList: false,
   });
 
   final bool isRunning;
   final bool isSuccess;
   final bool isFailure;
+  final bool isSavingList;
 
   factory ListadoState.noAction() {
     return ListadoState();
@@ -17,6 +19,10 @@ class ListadoState extends BlocState {
 
   factory ListadoState.running(){
     return ListadoState(isRunning: true,);
+  }
+
+  factory ListadoState.savingList(){
+    return ListadoState(isSavingList: true,);
   }
 
   factory ListadoState.success(){

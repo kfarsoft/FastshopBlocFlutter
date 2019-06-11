@@ -2,7 +2,7 @@ import 'package:fastshop/bloc_widgets/bloc_state_builder.dart';
 import 'package:fastshop/blocs/listados/listado_bloc.dart';
 import 'package:fastshop/blocs/listados/listado_event.dart';
 import 'package:fastshop/blocs/listados/listado_state.dart';
-import 'package:fastshop/blocs/listados/listado_state_bloc.dart';
+import 'package:fastshop/blocs/listados/listado_delete_bloc.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class ListDetailState extends State<ListDetail> {
   final nombre;
   final idListado;
 
-  ListadoStateBloc _listadoStateBloc;
+  ListadoDeleteBloc _listadoStateBloc;
 
 
   ListDetailState({
@@ -42,7 +42,7 @@ class ListDetailState extends State<ListDetail> {
   void initState() {
     //Trae las categorias del listado seleccionado
     bloc_user_list.fetchListCategories(idListado);
-    _listadoStateBloc = ListadoStateBloc();
+    _listadoStateBloc = ListadoDeleteBloc();
     super.initState();
   }
 
@@ -67,7 +67,6 @@ class ListDetailState extends State<ListDetail> {
           }
           return _buildNormal(context);
         });
-
   }
 
   Widget _buildNormal(BuildContext context){
@@ -180,7 +179,7 @@ class ListDetailState extends State<ListDetail> {
   }
 
   void _deleteListById(idListado) {
-    _listadoStateBloc.emitEvent(ListadoEvent(
+    _listadoStateBloc.emitEvent(ListDelete(
       event: ListadoEventType.working,
       idList: idListado
     ));

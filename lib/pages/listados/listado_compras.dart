@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fastshop/blocs/listados/listado_bloc.dart';
 
-import 'listado_details.dart';
+import 'package:fastshop/pages/listados/listado_details.dart';
 
 class LisCompra extends StatelessWidget {
 

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:fastshop/functions/getUsername.dart';
-import 'package:fastshop/pages/listado_compras.dart' as LisCom;
+import 'package:fastshop/pages/listados/listado_compras.dart' as LisCom;
 import 'package:fastshop/pages/promociones_vigentes.dart' as ProVig;
-import 'package:fastshop/pages/productos_page.dart' as ProFav;
+import 'package:fastshop/pages/categorias_page.dart' as ProFav;
 import 'package:fastshop/pages/mis_gastos.dart' as MisGas;
 import 'package:fastshop/widgets/log_out_button.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +76,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
             children: <Widget>[
               new ProVig.PromoVigentes(),
               new LisCom.LisCompra(),
-              new ProFav.ProductosPage(),
+              new ProFav.CategoryPage(),
               new MisGas.MisGastos()
             ]
         )

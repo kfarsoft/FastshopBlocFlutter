@@ -4,7 +4,7 @@ import 'package:fastshop/bloc_helpers/bloc_state_transform_base.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';
 import 'package:fastshop/blocs/decision/decision_state_action.dart';
-import 'package:fastshop/pages/authentication_page.dart';
+import 'package:fastshop/pages/authentication/authentication_page.dart';
 import 'package:fastshop/pages/home_page.dart';
 
 ///

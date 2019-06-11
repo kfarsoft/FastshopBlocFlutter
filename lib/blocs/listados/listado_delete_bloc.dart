@@ -5,16 +5,16 @@ import 'package:fastshop/blocs/listados/listado_event.dart';
 import 'package:fastshop/blocs/listados/listado_state.dart';
 import 'package:fastshop/repos/listado_provider.dart';
 
-class ListadoStateBloc extends BlocEventStateBase<ListadoEvent, ListadoState> {
+class ListadoDeleteBloc extends BlocEventStateBase<ListDelete, ListadoState> {
 
 
-  ListadoStateBloc()
+  ListadoDeleteBloc()
       : super(
           initialState: ListadoState.noAction(),
         );
 
   @override
-  Stream<ListadoState> eventHandler(ListadoEvent event, ListadoState currentState) async* {
+  Stream<ListadoState> eventHandler(ListDelete event, ListadoState currentState) async* {
     if (event.event == ListadoEventType.working){
       yield ListadoState.running();
 

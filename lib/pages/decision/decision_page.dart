@@ -2,7 +2,7 @@ import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/bloc_widgets/bloc_state_builder.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';
-import 'package:fastshop/pages/authentication_page.dart';
+import 'package:fastshop/pages/authentication/authentication_page.dart';
 import 'package:fastshop/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:user_repository/user_repository.dart';

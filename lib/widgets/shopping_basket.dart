@@ -1,6 +1,6 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
-import 'package:fastshop/pages/shopping_basket_page.dart';
+import 'package:fastshop/pages/shopping/shopping_basket_page.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingBasket extends StatelessWidget {

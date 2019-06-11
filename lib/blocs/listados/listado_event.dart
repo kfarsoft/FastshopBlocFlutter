@@ -1,20 +1,37 @@
 import 'package:fastshop/bloc_helpers/bloc_event_state.dart';
 import 'package:meta/meta.dart';
 
-class ListadoEvent extends BlocEvent {
+
+class ListDelete extends BlocEvent {
 
   final ListadoEventType event;
   final String idList;
 
 
-  ListadoEvent({
+  ListDelete({
     @required this.event,
     @required this.idList,
   });
+}
 
+class ListSave extends BlocEvent {
+
+  final ListadoEventType event;
+  final String name;
+  final List selected;
+  final String user;
+
+
+  ListSave({
+    @required this.event,
+    @required this.name,
+    @required this.selected,
+    @required this.user,
+  });
 }
 
 enum ListadoEventType {
   none,
   working,
+  savingList,
 }
