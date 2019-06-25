@@ -53,6 +53,10 @@ class AuthenticationPageLoginState extends State<AuthenticationPageLogin> {
   void initState() {
     super.initState();
     _saveCurrentRoute("/loginScreen");
+    setState(() {
+      _usernameController.text = "admin";
+      _passwordController.text = "admin";
+    });
   }
 
   _saveCurrentRoute(String lastRoute) async {

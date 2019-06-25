@@ -8,7 +8,7 @@ import 'package:fastshop/models/cliente.dart';
   if ((responseJson != null && !responseJson.isEmpty)) {
     prefs.setString('username', Cliente.fromJson(responseJson).username);
     prefs.setString('token', Cliente.fromJson(responseJson).token);
-    prefs.setString('idCliente', Cliente.fromJson(responseJson).idCliente);
+    prefs.setInt('idCliente', Cliente.fromJson(responseJson).idCliente);
   }
 
   //var token = (responseJson != null && !responseJson.isEmpty) ? Cliente.fromJson(responseJson).token : "";

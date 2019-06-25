@@ -3,7 +3,7 @@ class Cliente {
 
   final String username;
   final String token;
-  final String idCliente;
+  final int idCliente;
 
   Cliente(this.username, this.token, this.idCliente);
 
@@ -13,7 +13,7 @@ class Cliente {
     this.idCliente = "";
   }*/
 
-  String getId(){
+  int getId(){
     return idCliente;
   }
 

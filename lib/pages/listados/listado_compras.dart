@@ -73,17 +73,24 @@ class ListadoComprasState extends State<ListadoCompras> {
       gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3),
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: InkResponse(
-              enableFeedback: true,
-              child: new Container(
-                  alignment: Alignment.centerLeft,
-                  margin: new EdgeInsets.only(
-                      top: 10.0, bottom: 10.0, left: 10.0),
-                  child: new Text(snapshot.data[index].nombre)
-              ),
-              onTap: () => openDetailListPage(snapshot.data, index),
+        return InkResponse(
+          enableFeedback: true,
+          child: Card(
+            child: new Stack(
+              children: <Widget>[
+                //new Image.network(snapshot.data[index].uri, fit: BoxFit.cover),
+                Padding(padding: EdgeInsets.only (top: 10.0, bottom: 10.0, left: 10.0), child: new Text(snapshot.data[index].nombre, style: new TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold))),
+              ],
+            ),
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            margin: EdgeInsets.all(18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 5,
           ),
+          onTap: () => openDetailListPage(snapshot.data, index),
         );
       },
     );

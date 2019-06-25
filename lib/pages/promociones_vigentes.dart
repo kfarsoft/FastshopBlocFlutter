@@ -1,5 +1,6 @@
 import 'package:fastshop/blocs/home/promo_bloc.dart';
 import 'package:fastshop/models/models.dart';
+import 'package:fastshop/widgets/promo_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class PromoVigentes extends StatelessWidget {
@@ -55,23 +56,19 @@ class PromoVigentesState extends State<PromocionesVigentes> {
   }
 
   Widget buildList(AsyncSnapshot<List<Promocion>> snapshot) {
-    return ListView.builder(
-        itemCount: snapshot.data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return new Container(
-            child: ListTile(
-              title: Text(snapshot.data[index].promocion + ' en ' + snapshot.data[index].producto),
-              subtitle: Text('Del ' + snapshot.data[index].fechaInicio + ' al ' + snapshot.data[index].fechaFin),
-
-            ),
-            decoration:
-            new BoxDecoration(
-                border: new Border.all(
-                  color: Colors.blueAccent,
-                )
-            ),
-          );
-        });
+    return GridView.builder(
+      itemCount: snapshot.data.length,
+      gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1),
+      itemBuilder: (BuildContext context, int index) {
+        return InkResponse(
+          enableFeedback: true,
+          child: new PromoCard(title: snapshot.data[index].promocion + ' en ' + snapshot.data[index].producto,
+          date: 'Del ' + snapshot.data[index].fechaInicio + ' al ' + snapshot.data[index].fechaFin
+          ),
+        );
+      },
+    );
   }
 
 }
