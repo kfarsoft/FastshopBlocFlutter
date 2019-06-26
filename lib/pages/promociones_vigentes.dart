@@ -3,24 +3,21 @@ import 'package:fastshop/models/models.dart';
 import 'package:fastshop/widgets/promo_card_widget.dart';
 import 'package:flutter/material.dart';
 
-class PromoVigentes extends StatelessWidget {
+
+
+class PromoVigentes extends StatefulWidget {
+  PromoVigentes({Key key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PromocionesVigentes(),
+  State<StatefulWidget> createState() {
+    return PromoVigentesState(
     );
   }
-}
 
-class PromocionesVigentes extends StatefulWidget {
-  PromocionesVigentes({Key key}) : super(key: key);
-
-  @override
-  PromoVigentesState createState() => PromoVigentesState();
 }
 
 
-class PromoVigentesState extends State<PromocionesVigentes> {
+class PromoVigentesState extends State<PromoVigentes> {
 
   @override
   void initState() {

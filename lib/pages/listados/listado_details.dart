@@ -73,13 +73,14 @@ class ListDetailState extends State<ListDetail> {
     return Scaffold(
         body: Container(
           child: NestedScrollView(
+            scrollDirection: Axis.vertical,
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 new SliverAppBar(
                   title: Text(nombre, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
                   expandedHeight: 5.0,
                   floating: false,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.black45,
                   pinned: false,
                   elevation: 0.0,
                 ),
@@ -128,7 +129,7 @@ class ListDetailState extends State<ListDetail> {
         FlatButton(
           child: Text('Ok'),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
         ),
       ],

@@ -6,8 +6,12 @@ import 'listados/new_list_details.dart';
 
 class CategoryPage extends StatefulWidget {
   CategoryPage({Key key}) : super(key: key);
+
   @override
-  _CategoryPageState createState() => new _CategoryPageState();
+  State<StatefulWidget> createState() {
+    return _CategoryPageState(
+    );
+  }
 }
 
 class _CategoryPageState extends State<CategoryPage> {

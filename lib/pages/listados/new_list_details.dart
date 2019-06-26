@@ -78,7 +78,7 @@ class NewListDetailsState extends State<NewListDetails> {
                     title: Text('Nuevo listado', style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
                     expandedHeight: 50.0,
                     floating: false,
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.black38,
                     pinned: true,
                     elevation: 0.0,
                   ),
@@ -219,14 +219,8 @@ class NewListDetailsState extends State<NewListDetails> {
       actions: <Widget>[
         FlatButton(
           child: const Text('Ok'),
-          onPressed: () {/*
-                  Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) {
-                      return HomePage(
-                        clientRepository: _loginBloc.clientRepository,
-                      );
-                    }),);*/
-            Navigator.of(context).pop();
+          onPressed: () {
+            Navigator.pop(context);
             selected.clear();
           },
         ),
