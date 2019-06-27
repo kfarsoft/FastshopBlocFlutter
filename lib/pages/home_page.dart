@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:fastshop/functions/getUsername.dart';
-import 'package:fastshop/pages/listados/listado_compras.dart' as LisCom;
-import 'package:fastshop/pages/promociones_vigentes.dart' as ProVig;
-import 'package:fastshop/pages/categorias_page.dart' as ProFav;
+import 'package:fastshop/pages/active_offer.dart' as ProVig;
+import 'package:fastshop/pages/listados/shop_list_page.dart' as LisCom;
+import 'package:fastshop/pages/category_page.dart' as ProFav;
 import 'package:fastshop/pages/mis_gastos.dart' as MisGas;
 import 'package:fastshop/widgets/log_out_button.dart';
 import 'package:flutter/material.dart';
@@ -64,20 +64,20 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
               isScrollable: true,
               controller: controller,
               tabs: <Tab>[
-                new Tab(text: "Promociones vigentes",icon: new Icon(Icons.pages)),
-                new Tab(text: "Listado de Compras",icon: new Icon(Icons.list)),
-                new Tab(text: "Productos",icon: new Icon(Icons.shop)),
-                new Tab(text: "Mis gastos",icon: new Icon(Icons.account_balance)),
+                Tab(text: "Promociones vigentes",icon: new Icon(Icons.pages)),
+                Tab(text: "Listado de Compras",icon: new Icon(Icons.list)),
+                Tab(text: "Categorias",icon: new Icon(Icons.shop)),
+                Tab(text: "Mis gastos",icon: new Icon(Icons.account_balance)),
               ]
           ),
         ),
-        body: new TabBarView(
+        body: TabBarView(
             controller: controller,
             children: <Widget>[
-              new ProVig.PromoVigentes(),
-              new LisCom.LisCompra(),
-              new ProFav.CategoryPage(),
-              new MisGas.MisGastos()
+              ProVig.ActiveOfferPage(),
+              LisCom.ShopListPage(),
+              ProFav.CategoryPage(),
+              MisGas.MisGastos()
             ]
         )
       ),

@@ -2,26 +2,27 @@ import 'package:fastshop/bloc_widgets/bloc_state_builder.dart';
 import 'package:fastshop/blocs/listados/listado_event.dart';
 import 'package:fastshop/blocs/listados/listado_save_bloc.dart';
 import 'package:fastshop/blocs/listados/listado_state.dart';
+import 'package:fastshop/design/colors.dart';
 import 'package:fastshop/functions/getUsername.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/material.dart';
 
-class NewListDetails extends StatefulWidget {
+class CreateListPage extends StatefulWidget {
   final List<Categoria> selected;
 
-  NewListDetails({
+  CreateListPage({
     this.selected,
   });
 
   @override
   State<StatefulWidget> createState() {
-    return NewListDetailsState(
+    return CreateListPageState(
       selected: selected,
     );
   }
 }
 
-class NewListDetailsState extends State<NewListDetails> {
+class CreateListPageState extends State<CreateListPage> {
   final List<Categoria> selected;
   TextEditingController listNameController = new TextEditingController();
   String msg='';
@@ -32,7 +33,7 @@ class NewListDetailsState extends State<NewListDetails> {
     user = await getUsername();
   }
 
-  NewListDetailsState({
+  CreateListPageState({
     this.selected,
   });
 
@@ -139,7 +140,7 @@ class NewListDetailsState extends State<NewListDetails> {
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: (){saveList();}, backgroundColor: Colors.blueAccent, icon: Icon(Icons.save), label: Text('Guardar')
+            onPressed: (){saveList();}, backgroundColor: primaryColor, icon: Icon(Icons.save), label: Text('Guardar')
         )
     );
   }
@@ -190,8 +191,8 @@ class NewListDetailsState extends State<NewListDetails> {
       }
     }
     else{
-    _insertNewList();
-    await new Future.delayed(const Duration(seconds: 2));
+      _insertNewList();
+      await new Future.delayed(const Duration(seconds: 2));
       /*Navigator.push(context,
         MaterialPageRoute(builder: (context) {
           return InsertList(
@@ -204,10 +205,10 @@ class NewListDetailsState extends State<NewListDetails> {
 
   void _insertNewList() async{
     _listStateBloc.emitEvent(ListSave(
-      event: ListadoEventType.savingList,
-      selected: selected,
-      name: listNameController.text,
-      user: this.user
+        event: ListadoEventType.savingList,
+        selected: selected,
+        name: listNameController.text,
+        user: this.user
     ));
   }
 

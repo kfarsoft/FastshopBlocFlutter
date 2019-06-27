@@ -1,19 +1,21 @@
+import 'package:fastshop/design/colors.dart';
 import 'package:fastshop/functions/getUsername.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fastshop/blocs/listados/listado_bloc.dart';
 
-import 'package:fastshop/pages/listados/listado_details.dart';
+import 'package:fastshop/pages/listados/shop_details_list_page.dart';
 
-class LisCompra extends StatefulWidget {
+class ShopListPage extends StatefulWidget {
+  ShopListPage({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return ListadoComprasState();
+    return ShopListPageState();
   }
 }
 
-class ListadoComprasState extends State<LisCompra> {
+class ShopListPageState extends State<ShopListPage> {
   var user;
 
   Future<void> fetchUserListNames() async {
@@ -23,9 +25,9 @@ class ListadoComprasState extends State<LisCompra> {
 
   @override
   void initState() {
-    super.initState();
     //Trae solamente los nombres de los listados
     fetchUserListNames();
+    super.initState();
   }
 
   @override
@@ -57,20 +59,21 @@ class ListadoComprasState extends State<LisCompra> {
     return GridView.builder(
       itemCount: snapshot.data.length,
       gridDelegate:
-          new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (BuildContext context, int index) {
         return InkResponse(
             enableFeedback: true,
             child: Card(
+              color: new Color(fCardColor.value),
               child: new Stack(
                 children: <Widget>[
                   //new Image.network(snapshot.data[index].uri, fit: BoxFit.cover),
                   Padding(
                       padding:
-                          EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
+                      EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
                       child: new Text(snapshot.data[index].nombre,
                           style: new TextStyle(
-                              fontSize: 15.0, fontWeight: FontWeight.bold))),
+                              fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black45))),
                 ],
               ),
               semanticContainer: true,
@@ -81,16 +84,15 @@ class ListadoComprasState extends State<LisCompra> {
               ),
               elevation: 5,
             ),
-            //onTap: () => openDetailListPage(snapshot.data, index),
             onTap: () {
-              Navigator.push(
-                context,
+              Navigator.push( context,
                 MaterialPageRoute(
-                  builder: (context) => ListDetail(
+                  builder: (context) => ShopDetailsListPage(
                       nombre: snapshot.data[index].nombre,
                       idListado: snapshot.data[index].idListado),
                 ),
               );
+              setState(() {  });
             });
       },
     );

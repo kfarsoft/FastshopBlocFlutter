@@ -2,6 +2,7 @@ import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
 import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
+import 'package:fastshop/design/colors.dart';
 import 'package:fastshop/pages/authentication/authentication_page.dart';
 import 'package:fastshop/pages/shopping/cart_page.dart';
 import 'package:fastshop/pages/decision/decision_page.dart';
@@ -27,9 +28,9 @@ class Application extends StatelessWidget {
           child: MaterialApp(
             title: 'FastShop',
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: primaryColor,
             ),
-            routes: 
+            routes:
             {
               '/decision': (BuildContext context) => DecisionPage(userRepository: userRepository,),
               '/register': (BuildContext context) => RegistrationPage(),

@@ -5,19 +5,17 @@ import 'package:flutter/material.dart';
 
 
 
-class PromoVigentes extends StatefulWidget {
-  PromoVigentes({Key key}) : super(key: key);
+class ActiveOfferPage extends StatefulWidget {
+  ActiveOfferPage({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return PromoVigentesState(
+    return ActiveOfferPageState(
     );
   }
-
 }
 
-
-class PromoVigentesState extends State<PromoVigentes> {
+class ActiveOfferPageState extends State<ActiveOfferPage> {
 
   @override
   void initState() {

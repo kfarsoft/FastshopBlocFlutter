@@ -6,12 +6,12 @@ import 'package:fastshop/blocs/listados/listado_delete_bloc.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/material.dart';
 
-class ListDetail extends StatefulWidget {
+class ShopDetailsListPage extends StatefulWidget {
   final nombre;
   final idListado;
 
 
-  ListDetail({
+  ShopDetailsListPage({
     this.nombre,
     this.idListado,
 
@@ -19,21 +19,21 @@ class ListDetail extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return ListDetailState(
+    return ShopDetailsListPageState(
       nombre: nombre,
       idListado: idListado,
     );
   }
 }
 
-class ListDetailState extends State<ListDetail> {
+class ShopDetailsListPageState extends State<ShopDetailsListPage> {
   final nombre;
   final idListado;
 
   ListadoDeleteBloc _listadoStateBloc;
 
 
-  ListDetailState({
+  ShopDetailsListPageState({
     this.nombre,
     this.idListado,
   });
@@ -162,9 +162,9 @@ class ListDetailState extends State<ListDetail> {
           actions: <Widget>[
             FlatButton(
               child: const Text('Si'),
-              onPressed: ()async {
-                _deleteListById(idListado);
-                Navigator.of(context).pop(context);
+              onPressed: () async {
+                await _deleteListById(idListado);
+                Navigator.pop(context);
               },
             ),
             FlatButton(
@@ -181,8 +181,8 @@ class ListDetailState extends State<ListDetail> {
 
   void _deleteListById(idListado) {
     _listadoStateBloc.emitEvent(ListDelete(
-      event: ListadoEventType.working,
-      idList: idListado
+        event: ListadoEventType.working,
+        idList: idListado
     ));
 
     //bloc_user_list.deleteListById(idListado);

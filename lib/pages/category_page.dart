@@ -1,8 +1,9 @@
 import 'package:fastshop/blocs/home/categoria_bloc.dart';
+import 'package:fastshop/design/colors.dart';
 import 'package:fastshop/models/models.dart';
 import 'package:flutter/material.dart';
 
-import 'listados/new_list_details.dart';
+import 'listados/create_list_page.dart';
 
 class CategoryPage extends StatefulWidget {
   CategoryPage({Key key}) : super(key: key);
@@ -57,22 +58,22 @@ class _CategoryPageState extends State<CategoryPage> {
                       borderRadius: BorderRadius.all(Radius.circular(25.0)))),
             ),
           ),
-                  StreamBuilder(
-                    stream: bloc_categories_name.allTodo,
-                    builder: (context, AsyncSnapshot<List<Categoria>> snapshot) {
-                      if (snapshot.hasData) {
-                        //Aca largamos la lista a la pantalla
-                            return buildList(snapshot);
-                      } else if (snapshot.hasError) {
-                        return Text('Error es:${snapshot.error}');
-                      }
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  ),
+          StreamBuilder(
+              stream: bloc_categories_name.allTodo,
+              builder: (context, AsyncSnapshot<List<Categoria>> snapshot) {
+                if (snapshot.hasData) {
+                  //Aca largamos la lista a la pantalla
+                  return buildList(snapshot);
+                } else if (snapshot.hasError) {
+                  return Text('Error es:${snapshot.error}');
+                }
+                return Center(child: CircularProgressIndicator());
+              }
+          ),
           Expanded(
             flex: 2,
             child: Scaffold(
-                floatingActionButton: FloatingActionButton.extended(onPressed: (){createList();}, backgroundColor: Colors.blueAccent, icon: Icon(Icons.add), label: Text('Nuevo'))
+                floatingActionButton: FloatingActionButton.extended(onPressed: (){createList();}, backgroundColor: primaryColor, icon: Icon(Icons.add), label: Text('Nuevo'))
             ),
           ),
         ],
@@ -105,7 +106,7 @@ class _CategoryPageState extends State<CategoryPage> {
     else {
       Navigator.push(context,
         MaterialPageRoute(builder: (context) {
-          return NewListDetails(
+          return CreateListPage(
             selected: selected,
           );
         }),
