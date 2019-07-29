@@ -1,18 +1,17 @@
 import 'dart:async';
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
-import 'package:fastshop/models/product.dart';
+import 'package:fastshop/models/producto.dart';
+import 'package:fastshop/repos/producto_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ShoppingBloc implements BlocBase {
   // List of all items, part of the shopping basket
-  Set<Product> _shoppingBasket = Set<Product>();
-
+  Set<Producto> _shoppingBasket = Set<Producto>();
+  final _producto = ProductoRepository();
   // Stream to list of all possible items
-  BehaviorSubject<List<Product>> _itemsController = BehaviorSubject<List<Product>>();
-  Stream<List<Product>> get items => _itemsController;
+  BehaviorSubject<List<Producto>> _itemsController = BehaviorSubject<List<Producto>>();
+  Stream<List<Producto>> get items => _itemsController;
 
   BehaviorSubject<int> _shoppingBasketSizeController = BehaviorSubject<int>.seeded(0);
   Stream<int> get shoppingBasketSize => _shoppingBasketSizeController;
@@ -21,8 +20,8 @@ class ShoppingBloc implements BlocBase {
   Stream<double> get shoppingBasketTotalPrice => _shoppingBasketPriceController;
 
   // Stream to list the items part of the shopping basket
-  BehaviorSubject<List<Product>> _shoppingBasketController = BehaviorSubject<List<Product>>.seeded(<Product>[]);
-  Stream<List<Product>> get shoppingBasket => _shoppingBasketController;
+  BehaviorSubject<List<Producto>> _shoppingBasketController = BehaviorSubject<List<Producto>>.seeded(<Producto>[]);
+  Stream<List<Producto>> get shoppingBasket => _shoppingBasketController;
 
   @override
   void dispose() {
@@ -37,13 +36,13 @@ class ShoppingBloc implements BlocBase {
     _loadShoppingItems();
   }
 
-  void addToShoppingBasket(Product item){
+  void addToShoppingBasket(Producto item){
     // item.quantity++;
     _shoppingBasket.add(item);
     _postActionOnBasket();
   }
 
-  void removeFromShoppingBasket(Product item){
+  void removeFromShoppingBasket(Producto item){
     _shoppingBasket.remove(item);
     _postActionOnBasket();
   }
@@ -56,10 +55,10 @@ class ShoppingBloc implements BlocBase {
 
   void _computeShoppingBasketTotalPrice(){
     double total = 0.0;
-    _shoppingBasket.forEach((Product item){
-      total += item.price;
+    _shoppingBasket.forEach((Producto item){
+      total += item.precio;
     });
-    total = num.parse(total.toStringAsFixed(2)); 
+    total = num.parse(total.toStringAsFixed(2));
     _shoppingBasketPriceController.sink.add(total);
   }
 
@@ -68,16 +67,15 @@ class ShoppingBloc implements BlocBase {
   // Normally this should come from a call to the server
   // but for this sample, we simply simulate
   //
-  void _loadShoppingItems() {
-    _itemsController.sink.add(List<Product>.generate(50, (int index) {
-      return Product(
-        id: index,
-        name: "Item $index",
-        price: ((Random().nextDouble() * 40.0 + 10.0) * 100.0).roundToDouble() /
-            100.0,
-        color: Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0)
-            .withOpacity(1.0),
-      );
-    }));
+  void _loadShoppingItems() async{
+    List<Producto> producto = await _producto.fetchProductList();
+    _itemsController.sink.add(producto);
+
+    Producto(
+      idProducto: producto[0].idProducto,
+      descripcion: producto[0].descripcion,
+      precio: producto[0].precio
+    );
+
   }
 }

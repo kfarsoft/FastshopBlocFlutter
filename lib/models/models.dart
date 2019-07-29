@@ -4,7 +4,7 @@ export 'cliente.dart';
 export 'clienteResponse.dart';
 export 'promocion.dart';
 export 'categoria.dart';
-export 'product.dart';
+export 'producto.dart';
 export 'listadoXCategoria.dart';
 export 'cartItem.dart';
 export 'cart.dart';

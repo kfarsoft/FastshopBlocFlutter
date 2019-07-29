@@ -1,5 +1,5 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
-import 'package:fastshop/models/product.dart';
+import 'package:fastshop/models/producto.dart';
 // import 'package:rxdart/rxdart.dart';
 
 class CartItemBloc implements BlocBase {
@@ -9,5 +9,5 @@ class CartItemBloc implements BlocBase {
   void dispose() {
     /// TODO:implement dispose
   }
-   CartItemBloc(Product shoppingItem);
+   CartItemBloc(Producto shoppingItem);
 }

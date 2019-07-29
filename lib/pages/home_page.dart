@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:fastshop/functions/getUsername.dart';
-import 'package:fastshop/pages/active_offer.dart' as ProVig;
-import 'package:fastshop/pages/listados/shop_list_page.dart' as LisCom;
-import 'package:fastshop/pages/category_page.dart' as ProFav;
-import 'package:fastshop/pages/mis_gastos.dart' as MisGas;
+import 'package:fastshop/pages/active_offer.dart';
+import 'package:fastshop/pages/category_page.dart';
+import 'package:fastshop/pages/listados/shop_list_page.dart';
+import 'package:fastshop/pages/shopping/shopping_page.dart';
 import 'package:fastshop/widgets/log_out_button.dart';
+import 'package:fastshop/widgets/shopping_basket.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,6 +59,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
           title: Text('Bienvenido $user'),
           leading: Container(),
           actions: <Widget>[
+            ShoppingBasket(),
             LogOutButton(),
           ],
           bottom: new TabBar(
@@ -67,17 +69,17 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
                 Tab(text: "Promociones vigentes",icon: new Icon(Icons.pages)),
                 Tab(text: "Listado de Compras",icon: new Icon(Icons.list)),
                 Tab(text: "Categorias",icon: new Icon(Icons.shop)),
-                Tab(text: "Mis gastos",icon: new Icon(Icons.account_balance)),
+                Tab(text: "Carrito",icon: new Icon(Icons.shopping_cart)),
               ]
           ),
         ),
         body: TabBarView(
             controller: controller,
             children: <Widget>[
-              ProVig.ActiveOfferPage(),
-              LisCom.ShopListPage(),
-              ProFav.CategoryPage(),
-              MisGas.MisGastos()
+              ActiveOfferPage(),
+              ShopListPage(),
+              CategoryPage(),
+              ShoppingPage()
             ]
         )
       ),

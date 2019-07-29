@@ -19,8 +19,8 @@ class ItemTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(item.product.name),
-                Text('\$${num.parse((item.product.price * item.count).toStringAsFixed(2))}',
+                Text(item.product.descripcion),
+                Text('\$${num.parse((item.product.precio * item.count).toStringAsFixed(2))}',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
@@ -37,7 +37,7 @@ class ItemTile extends StatelessWidget {
                         color: Colors.blue,
                         decoration: TextDecoration.underline)),
               ),
-              Text('\nPrec/U. \$${item.product.price}'),
+              Text('\nPrec/U. \$${item.product.precio}'),
             ],
           ),
           trailing: Container(

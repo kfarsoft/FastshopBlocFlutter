@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:fastshop/models/product.dart';
+import 'package:fastshop/models/producto.dart';
 import 'package:fastshop/models/cartItem.dart';
 
 class Cart {
@@ -16,7 +16,7 @@ class Cart {
   }
 
   /// Fills the cart with a sampling from the given products.
-  Cart.sample(Iterable<Product> products) {
+  Cart.sample(Iterable<Producto> products) {
     _items.addAll(products.take(3).map((product) => CartItem(1, product)));
   }
 
@@ -25,10 +25,6 @@ class Cart {
   /// This is in contrast of just doing [items.length], which only counts
   /// each product once, regardless of how many are being bought.
   int get itemCount => _items.fold(0, (sum, el) => sum + el.count);
-
-
-  /// The total price of items in the cart
-  double get itemTotalPrice => _items.fold(0, (sum, el) => sum + el.totalPrice);
 
   /// This is the current state of the cart.
   ///
@@ -41,26 +37,26 @@ class Cart {
 
   /// Adds [product] to cart. This will either update an existing [CartItem]
   /// in [items] or add a one at the end of the list.
-  void add(Product product, [int count = 1]) {
+  void add(Producto product, [int count = 1]) {
     _updateCount(product, count);
   }
 
   /// Removes [product] from cart. This will either update the count of
   /// an existing [CartItem] in [items] or remove it entirely (if count reaches
   /// `0`.
-  void remove(Product product, [int count = 1]) {
+  void remove(Producto product, [int count = 1]) {
     _updateCount(product, -count);
   }
 
   /// Updates the [count] of a [product] from the cart.
-  void update(Product product, [int count = 1]) {
+  void update(Producto product, [int count = 1]) {
     _setNewCount(product, count);
   }
 
   @override
   String toString() => "$items";
 
-  void _updateCount(Product product, int difference) {
+  void _updateCount(Producto product, int difference) {
     if (difference == 0) return;
     for (int i = 0; i < _items.length; i++) {
       final item = _items[i];
@@ -78,7 +74,7 @@ class Cart {
     _items.add(CartItem(max(difference, 0), product));
   }
 
-  void _setNewCount(Product product, int count) {
+  void _setNewCount(Producto product, int count) {
     if (count == 0) return;
     for (var i = 0; i < _items.length; i++) {
       final item = _items[i];
