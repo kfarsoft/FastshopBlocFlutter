@@ -11,7 +11,7 @@ class ShoppingBasketPrice extends StatelessWidget {
       stream: bloc.shoppingBasketTotalPrice,
       initialData: 0.0,
       builder: (BuildContext context, AsyncSnapshot<double> snapshot){
-        return Text('Total: \$${snapshot.data}');
+        return Text('\$${snapshot.data}');
       },
     );
   }

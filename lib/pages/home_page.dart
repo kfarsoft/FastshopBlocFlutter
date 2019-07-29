@@ -60,15 +60,18 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
           title: Text('Bienvenido $user'),
           leading: Container(),
           actions: <Widget>[
-            Text('Mi Carrito'),
-            SizedBox(
-              width: 16.0,
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  //ShoppingBasketPrice(),
+                  ShoppingBasket(),
+                ],
+              ),
+              onTap: () {
+                Navigator.of(context).pushNamed('/shoppingBasket');
+              },
             ),
-            ShoppingBasket(),
-            SizedBox(
-              width: 16.0,
-            ),
-            ShoppingBasketPrice(),
             LogOutButton(),
           ],
           bottom: new TabBar(
