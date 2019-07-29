@@ -8,8 +8,9 @@ import 'package:fastshop/pages/shopping/cart_page.dart';
 import 'package:fastshop/pages/decision/decision_page.dart';
 import 'package:fastshop/pages/authentication/initialization_page.dart';
 import 'package:fastshop/pages/registration/registration_page.dart';
+import 'package:fastshop/repos/user_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:user_repository/user_repository.dart';
+//import 'package:user_repository/user_repository.dart';
 
 class Application extends StatelessWidget {
 

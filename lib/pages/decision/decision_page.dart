@@ -6,8 +6,9 @@ import 'package:fastshop/blocs/cart/cart_boc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/pages/authentication/authentication_page.dart';
 import 'package:fastshop/pages/home_page.dart';
+import 'package:fastshop/repos/user_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:user_repository/user_repository.dart';
+//import 'package:user_repository/user_repository.dart';
 
 class DecisionPage extends StatefulWidget {
   //Para el username

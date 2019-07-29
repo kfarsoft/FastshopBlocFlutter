@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:fastshop/bloc_helpers/bloc_event_state.dart';
 import 'package:fastshop/blocs/registration/registration_event.dart';
 import 'package:fastshop/blocs/registration/registration_state.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:fastshop/repos/user_repository.dart';
+//import 'package:user_repository/user_repository.dart';
 
 class RegistrationBloc extends BlocEventStateBase<RegistrationEvent, RegistrationState> {
 
