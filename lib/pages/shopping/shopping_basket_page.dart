@@ -23,7 +23,6 @@ class ShoppingBasketPage extends StatelessWidget {
               return Container();
             }
             return ListView.builder(
-
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return ShoppingItemWidget(shoppingItem: snapshot.data[index]);
