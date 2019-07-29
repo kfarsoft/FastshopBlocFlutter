@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:fastshop/functions/saveLogout.dart';
-import 'package:fastshop/repos/user_repository.dart';
 import 'package:meta/meta.dart';
-//import 'package:user_repository/user_repository.dart';
+import 'package:fastshop/user_repository/user_repository.dart';
 import 'package:fastshop/bloc_helpers/bloc_event_state.dart';
 import 'package:fastshop/blocs/authentication/authentication_event.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';
