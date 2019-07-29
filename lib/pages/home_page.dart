@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
   HomePageSample createState() => new HomePageSample();
 }
 
-class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin {
 
   TabController controller;
 
