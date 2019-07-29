@@ -1,13 +1,20 @@
 import 'dart:async';
-
+import 'package:fastshop/functions/saveLogout.dart';
+import 'package:meta/meta.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:fastshop/bloc_helpers/bloc_event_state.dart';
 import 'package:fastshop/blocs/authentication/authentication_event.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';
 
 class AuthenticationBloc
     extends BlocEventStateBase<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc()
-      : super(
+  final UserRepository userRepository;
+
+  AuthenticationBloc({
+    @required this.userRepository,
+  })
+      : assert (userRepository != null),
+        super(
           initialState: AuthenticationState.notAuthenticated(),
         );
 
@@ -20,17 +27,23 @@ class AuthenticationBloc
       yield AuthenticationState.authenticating();
 
       // Simulate a call to the authentication server
-      await Future.delayed(const Duration(seconds: 2));
+      try {
+         await userRepository.authenticate(
+          username: event.username,
+          password: event.password,
+        );
 
-      // Inform that we have successfuly authenticated, or not
-      if (event.name == "failure"){
+
+        yield AuthenticationState.authenticated(event.username);
+      } catch (error) {
         yield AuthenticationState.failure();
-      } else {
-        yield AuthenticationState.authenticated(event.name);
       }
     }
 
     if (event is AuthenticationEventLogout){
+
+      saveLogout();
+
       yield AuthenticationState.notAuthenticated();
     }
   }

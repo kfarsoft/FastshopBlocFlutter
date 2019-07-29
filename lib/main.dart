@@ -1,7 +1,9 @@
 import 'package:fastshop/application.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:user_repository/user_repository.dart';
 
 void main() {
-  runApp(Application());
+  debugPaintSizeEnabled = false;
+  runApp(Application(userRepository: UserRepository()));
 }
-//En ADDCARRITO
