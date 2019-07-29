@@ -38,14 +38,14 @@ class DecisionPageState extends State<DecisionPage> {
 
           if (state.isAuthenticated){
             _redirectToPage(context,
-                BlocProvider<ShoppingBloc>(
-                  bloc: ShoppingBloc(),
-                    child: BlocProvider<CartBloc>(
-                        bloc: CartBloc(),
-                        child: HomePage()
-                    )
-                )
-            );
+                // BlocProvider<ShoppingBloc>(
+                  // bloc: ShoppingBloc(),
+                    // child: BlocProvider<CartBloc>(
+                        // bloc: CartBloc(),
+                        HomePage()
+                    );
+                // )
+            // );
           } else if (state.isAuthenticating || state.hasFailed){
   //do nothing
           } else {

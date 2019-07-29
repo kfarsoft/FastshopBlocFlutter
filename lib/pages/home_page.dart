@@ -57,7 +57,8 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
       child: Scaffold(
         appBar: AppBar(
           title: Text('Bienvenido $user'),
-          leading: Container(),
+          leading: LogOutButton(),
+
           actions: <Widget>[
             InkWell(
               child: Row(
@@ -71,7 +72,6 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
                 Navigator.of(context).pushNamed('/shoppingBasket');
               },
             ),
-            LogOutButton(),
           ],
           bottom: new TabBar(
               isScrollable: true,
