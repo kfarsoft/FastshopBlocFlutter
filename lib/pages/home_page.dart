@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin {
 
-  TabController controller;
+  TabController _controller;
 
   var user;
   Future<void> _getUsername() async {
@@ -28,7 +28,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 4);
+    _controller = new TabController(vsync: this, length: 4);
     _saveCurrentRoute("/HomeScreen");
     _getUsername();
   }
@@ -41,7 +41,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -75,9 +75,10 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
           ],
           bottom: new TabBar(
               isScrollable: true,
-              controller: controller,
+              controller: _controller,
+              indicatorSize: TabBarIndicatorSize.tab,
               tabs: <Tab>[
-                Tab(text: "Promociones vigentes",icon: new Icon(Icons.pages)),
+                Tab(text: "Promociones",icon: new Icon(Icons.pages)),
                 Tab(text: "Listado de Compras",icon: new Icon(Icons.list)),
                 Tab(text: "Categorias",icon: new Icon(Icons.shop)),
                 Tab(text: "Carrito",icon: new Icon(Icons.shopping_cart)),
@@ -85,7 +86,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
           ),
         ),
         body: TabBarView(
-            controller: controller,
+            controller: _controller,
             children: <Widget>[
               ActiveOfferPage(),
               ShopListPage(),

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:math';
+import 'dart:ui';
 
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/models/producto.dart';
@@ -65,9 +67,23 @@ class ShoppingBloc implements BlocBase {
     _shoppingBasketPriceController.sink.add(total);
   }
 
-
+/*
   void _loadShoppingItems() async{
     List<Producto> producto = await _repo.fetchProductList();
     _itemsController.sink.add(producto);
+  }*/
+
+  void _loadShoppingItems() {
+    _itemsController.sink.add(List<Producto>.generate(50, (int index) {
+      return Producto(
+        idProducto: index,
+        descripcion: "Item $index",
+        precio: ((Random().nextDouble() * 40.0 + 10.0) * 100.0).roundToDouble() /
+            100.0,
+        color: Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0)
+            .withOpacity(1.0),
+      );
+    }));
   }
+
 }
