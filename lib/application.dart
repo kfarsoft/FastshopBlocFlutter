@@ -21,25 +21,19 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<AuthenticationBloc>(
       bloc: AuthenticationBloc(userRepository: userRepository),
-      child: BlocProvider<ShoppingBloc>(
-        bloc: ShoppingBloc(),
-        child: BlocProvider<CartBloc>(
-          bloc: CartBloc(),
-          child: MaterialApp(
-            title: 'FastShop',
-            theme: ThemeData(
-              primarySwatch: primaryColor,
-            ),
-            routes:
-            {
-              '/decision': (BuildContext context) => DecisionPage(userRepository: userRepository,),
-              '/register': (BuildContext context) => RegistrationPage(),
-              '/loginScreen': (BuildContext context) => AuthenticationPage(),
-              '/shoppingBasket': (BuildContext context) => BlocCartPage(),
-            },
-            home: InitializationPage(),
-          ),
+      child: MaterialApp(
+        title: 'FastShop',
+        theme: ThemeData(
+          primarySwatch: primaryColor,
         ),
+        routes:
+        {
+          '/decision': (BuildContext context) => DecisionPage(userRepository: userRepository,),
+          '/register': (BuildContext context) => RegistrationPage(),
+          '/loginScreen': (BuildContext context) => AuthenticationPage(),
+          '/shoppingBasket': (BuildContext context) => BlocCartPage(),
+        },
+        home: InitializationPage(),
       ),
     );
   }

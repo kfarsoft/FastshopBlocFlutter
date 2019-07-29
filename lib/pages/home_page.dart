@@ -6,7 +6,6 @@ import 'package:fastshop/pages/listados/shop_list_page.dart';
 import 'package:fastshop/pages/shopping/shopping_page.dart';
 import 'package:fastshop/widgets/log_out_button.dart';
 import 'package:fastshop/widgets/shopping_basket.dart';
-import 'package:fastshop/widgets/shopping_basket_price.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

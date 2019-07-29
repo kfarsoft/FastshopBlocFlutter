@@ -8,10 +8,13 @@ import 'package:rxdart/rxdart.dart';
 class ShoppingBloc implements BlocBase {
   // List of all items, part of the shopping basket
   Set<Producto> _shoppingBasket = Set<Producto>();
-  final _producto = ProductoRepository();
+  final _repo = ProductoRepository();
   // Stream to list of all possible items
+
+
   BehaviorSubject<List<Producto>> _itemsController = BehaviorSubject<List<Producto>>();
   Stream<List<Producto>> get items => _itemsController;
+
 
   BehaviorSubject<int> _shoppingBasketSizeController = BehaviorSubject<int>.seeded(0);
   Stream<int> get shoppingBasketSize => _shoppingBasketSizeController;
@@ -62,20 +65,11 @@ class ShoppingBloc implements BlocBase {
     _shoppingBasketPriceController.sink.add(total);
   }
 
-  //
-  // Generates a series of Shopping Items
-  // Normally this should come from a call to the server
-  // but for this sample, we simply simulate
-  //
+
   void _loadShoppingItems() async{
-    List<Producto> producto = await _producto.fetchProductList();
+    List<Producto> producto = await _repo.fetchProductList();
+    await Future.delayed(Duration(seconds: 2));
+    //NO ESTA CARGANDO EN EL STREAM
     _itemsController.sink.add(producto);
-
-    Producto(
-      idProducto: producto[0].idProducto,
-      descripcion: producto[0].descripcion,
-      precio: producto[0].precio
-    );
-
   }
 }

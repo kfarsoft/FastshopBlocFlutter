@@ -2,6 +2,8 @@ import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/bloc_widgets/bloc_state_builder.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
 import 'package:fastshop/blocs/authentication/authentication_state.dart';
+import 'package:fastshop/blocs/cart/cart_boc.dart';
+import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/pages/authentication/authentication_page.dart';
 import 'package:fastshop/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,15 @@ class DecisionPageState extends State<DecisionPage> {
           oldAuthenticationState = state;
 
           if (state.isAuthenticated){
-            _redirectToPage(context, HomePage());
+            _redirectToPage(context,
+                BlocProvider<ShoppingBloc>(
+                  bloc: ShoppingBloc(),
+                    child: BlocProvider<CartBloc>(
+                        bloc: CartBloc(),
+                        child: HomePage()
+                    )
+                )
+            );
           } else if (state.isAuthenticating || state.hasFailed){
   //do nothing
           } else {
