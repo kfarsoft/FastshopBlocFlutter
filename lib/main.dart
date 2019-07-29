@@ -1,8 +1,6 @@
 import 'package:fastshop/application.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(Application());
-
-void _get(){
-
+void main() {
+  runApp(Application());
 }
