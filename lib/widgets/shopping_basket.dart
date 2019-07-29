@@ -13,12 +13,11 @@ class ShoppingBasket extends StatelessWidget {
       height: 48.0,
       child: InkWell(
         onTap: () {
-         /* Navigator.of(context).push(
+         Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) => ShoppingBasketPage(),
             ),
-          );*/
-          Navigator.of(context).pushNamed('/shoppingBasket');
+          );
         },
         child: Stack(
           overflow: Overflow.visible,
