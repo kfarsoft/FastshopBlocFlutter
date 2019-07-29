@@ -15,11 +15,11 @@ String promocionToJson(List<Promocion> data) {
 }
 
 class Promocion {
-  String idPromocion;
-  String fechaFin;
-  String fechaInicio;
-  String producto;
-  String promocion;
+  final String idPromocion;
+  final String fechaFin;
+  final String fechaInicio;
+  final String producto;
+  final String promocion;
 
   Promocion({
     this.idPromocion,

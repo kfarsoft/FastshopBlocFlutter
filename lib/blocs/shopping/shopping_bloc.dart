@@ -68,8 +68,6 @@ class ShoppingBloc implements BlocBase {
 
   void _loadShoppingItems() async{
     List<Producto> producto = await _repo.fetchProductList();
-    await Future.delayed(Duration(seconds: 2));
-    //NO ESTA CARGANDO EN EL STREAM
     _itemsController.sink.add(producto);
   }
 }

@@ -26,9 +26,9 @@ class Producto extends Object {
   });
 
   factory Producto.fromJson(Map<String, dynamic> json) => new Producto(
-    idProducto: json["idProducto"],
-    descripcion: json["descripcion"],
-    precio: json["precio"],
+    idProducto: json["idProducto"] as int,
+    descripcion: json["descripcion"] as String,
+    precio: json["precio"] as double,
 
   );
 
