@@ -26,7 +26,6 @@ class _ShoppingPageState extends State<ShoppingPage> {
   @override
   Widget build(BuildContext context) {
     ShoppingBloc bloc = BlocProvider.of<ShoppingBloc>(context);
-
     return new Scaffold(
       body: StreamBuilder<List<Producto>>(
         stream: bloc.items,
