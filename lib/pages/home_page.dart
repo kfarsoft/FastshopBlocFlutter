@@ -111,14 +111,7 @@ Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Mi Carrito'),
-                      SizedBox(
-                        width: 16.0,
-                      ),
                       ShoppingBasket(),
-                      SizedBox(
-                        width: 16.0,
-                      ),
                       ShoppingBasketPrice(),
                     ],
                   ),
