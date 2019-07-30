@@ -1,6 +1,6 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/authentication/authentication_bloc.dart';
-import 'package:fastshop/blocs/cart/cart_boc.dart';
+import 'package:fastshop/blocs/cart/cart_bloc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/design/colors.dart';
 import 'package:fastshop/pages/authentication/authentication_page.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
-import 'package:fastshop/blocs/cart/cart_boc.dart';
+import 'package:fastshop/blocs/cart/cart_bloc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/blocs/shopping/shopping_item_bloc.dart';
 import 'package:fastshop/models/producto.dart';
@@ -75,9 +75,7 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
       stream: _bloc.isInShoppingBasket,
       initialData: false,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        return snapshot.data
-            ? _buildRemoveFromShoppingBasket()
-            : _buildAddToShoppingBasket();
+        return _buildAddToShoppingBasket();
       },
     );
   }
@@ -88,15 +86,6 @@ class _ShoppingItemWidgetState extends State<ShoppingItemWidget> {
       onPressed: (){
         _cartBloc.cartAddition.add(CartAddition(widget.shoppingItem));
         // _cartBloc.addToCart(widget.shoppingItem);
-      },
-    );
-  }
-
-  Widget _buildRemoveFromShoppingBasket(){
-    return IconButton(
-      icon: Icon(Icons.remove_circle_outline, color: Colors.red,), 
-      onPressed: (){
-        _shoppingBloc.removeFromShoppingBasket(widget.shoppingItem);
       },
     );
   }
