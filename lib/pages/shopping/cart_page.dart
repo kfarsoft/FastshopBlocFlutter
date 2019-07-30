@@ -24,10 +24,66 @@ class BlocCartPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.display1));
               }
 
-              return ListView(
-                  children: snapshot.data
-                      .map((item) => ItemTile(item: item))
-                      .toList());
+              return Container(
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.zero,
+                        child: ListView(
+                            children: snapshot.data
+                                .map((item) => ItemTile(item: item))
+                                .toList()),
+                      ),
+                    ),
+                    Container(
+                      color: Colors.grey.shade200,
+                      padding: EdgeInsets.only(bottom: 30),
+                      width: double.infinity,
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: StreamBuilder<double>(
+                              stream: cart.itemsTotalPrice,
+                              initialData: 0,
+                              builder: (context, snapshot) => Text(
+                                "Total: \$${num.parse(snapshot.data.toStringAsFixed(2))}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 25),
+                              ),
+                            ),
+                            subtitle: StreamBuilder<int>(
+                              stream: cart.itemCount,
+                              initialData: 0,
+                              builder: (context, snapshot) => Text(
+                                "Cantidad de productos: ${snapshot.data}",
+                                // style: TextStyle(
+                                //     fontWeight: FontWeight.w900,
+                                //     fontSize: 25),
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            title: RaisedButton(
+                              color: Colors.blue,
+                              onPressed: () => print("nothing"),
+                              child: Text("Finalizar Compra",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }));
   }
 }

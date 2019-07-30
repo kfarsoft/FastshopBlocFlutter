@@ -24,29 +24,38 @@ class CartBloc implements BlocBase {
 
   final BehaviorSubject<int> _itemCount = BehaviorSubject<int>.seeded(0);
 
+  final StreamController<double> _itemTotalPrice = BehaviorSubject<double>.seeded(0);
+
   final StreamController<CartAddition> _cartAdditionController =
   StreamController<CartAddition>();
 
   final StreamController<CartAddition> _cartUpdateController =
   StreamController<CartAddition>();
 
+
   CartBloc(){
     _cartAdditionController.stream.listen((addition) {
       int currentCount = _cart.itemCount;
+      double currentTotalPrice = _cart.itemTotalPrice;
       _cart.add(addition.product, addition.count);
       _items.add(_cart.items);
       int updatedCount = _cart.itemCount;
-      if (updatedCount != currentCount) {
+      double updatedTotalPrice = _cart.itemTotalPrice;
+      if (updatedCount != currentCount || updatedTotalPrice != currentTotalPrice) {
         _itemCount.add(updatedCount);
+        _itemTotalPrice.add(updatedTotalPrice);
       }
     });
     _cartUpdateController.stream.listen((addition){
       int currentCount = _cart.itemCount;
+      double currentTotalPrice = _cart.itemTotalPrice;
       _cart.update(addition.product, addition.count);
       _items.add(_cart.items);
       int updatedCount = _cart.itemCount;
-      if (updatedCount != currentCount){
+      double updatedTotalPrice = _cart.itemTotalPrice;
+      if (updatedCount != currentCount || updatedTotalPrice != currentTotalPrice) {
         _itemCount.add(updatedCount);
+        _itemTotalPrice.add(updatedTotalPrice);
       }
     });
   }
@@ -59,12 +68,15 @@ class CartBloc implements BlocBase {
 
   Stream<int> get itemCount => _itemCount.stream;
 
+  Stream<double> get itemsTotalPrice => _itemTotalPrice.stream;
+
   Stream<List<CartItem>> get items => _items.stream;
 
   @override
   void dispose() {
     _items.close();
     _itemCount.close();
+    _itemTotalPrice.close();
     _cartAdditionController.close();
     _cartUpdateController.close();
   }
