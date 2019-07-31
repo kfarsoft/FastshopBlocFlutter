@@ -27,7 +27,7 @@ class ShoppingBloc implements BlocBase {
 
   // Constructor
   ShoppingBloc() {
-    //_loadShoppingItems();
+    _loadShoppingItems();
   }
 
   void addScanProduct(barcode) async{

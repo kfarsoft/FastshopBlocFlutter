@@ -1,6 +1,8 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
+import 'package:fastshop/blocs/cart/cart_bloc.dart';
 import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
 import 'package:fastshop/models/producto.dart';
+import 'package:fastshop/repos/producto_repository.dart';
 import 'package:fastshop/widgets/shopping_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,14 +16,16 @@ class ShoppingPage extends StatefulWidget {
 
 class _ShoppingPageState extends State<ShoppingPage> {
   String barcode = "";
+final _repo = ProductoRepository();
 
   @override
   initState() {
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
+
+    CartBloc _cartBloc = BlocProvider.of<CartBloc>(context);
     ShoppingBloc bloc = BlocProvider.of<ShoppingBloc>(context);
     return new Scaffold(
       body: StreamBuilder<List<Producto>>(
@@ -45,18 +49,21 @@ class _ShoppingPageState extends State<ShoppingPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){scan(bloc);}, label: Text('Escanear'), icon: Icon(Icons.camera_alt)),
+      floatingActionButton: FloatingActionButton.extended(onPressed: (){scan(_cartBloc, _repo);}, label: Text('Escanear'), icon: Icon(Icons.camera_alt)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Future scan(ShoppingBloc bloc) async {
+  Future scan(CartBloc _cartBloc, ProductoRepository _repo) async {
     try {
       String barcode = await BarcodeScanner.scan();
-      setState(() {
-        this.barcode = barcode;
-        bloc.addScanProduct(barcode);
-      });
+      //lo deberia hacer a nivel local
+      Producto producto = await _repo.fetchProductScanned(barcode);
+      _cartBloc.cartAddition.add(CartAddition(producto));
+      // setState(() {
+      //   this.barcode = barcode;
+      //   bloc.addScanProduct(barcode);
+      // });
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
