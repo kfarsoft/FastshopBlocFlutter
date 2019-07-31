@@ -25,6 +25,9 @@ dependencies:
   cupertino_icons: ^0.1.2
   numberpicker: ^1.0.0
   shared_preferences: ^0.5.2+1
+  path_provider: ^1.2.0
+  barcode_scan: ^0.0.4
+  qr_flutter: ^2.0.0
 dev_dependencies:
   #build_runner: ^1.1.2
   flutter_test:

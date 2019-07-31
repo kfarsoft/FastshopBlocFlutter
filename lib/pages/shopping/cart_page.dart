@@ -1,14 +1,23 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/cart/cart_bloc.dart';
 import 'package:fastshop/design/colors.dart';
-
+import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:ui';
+import 'package:flutter/rendering.dart';
 import 'package:fastshop/models/cartItem.dart';
 import 'package:fastshop/widgets/cart_item_widget.dart';
-import 'package:flutter/material.dart';
 
-class BlocCartPage extends StatelessWidget {
+class BlocCartPage extends StatefulWidget {
   BlocCartPage();
+  @override
+  State<StatefulWidget> createState() => BlocCartPageState();
+}
 
+class BlocCartPageState extends State<BlocCartPage> {
+
+  String _inputErrorText;
+  String _dataString = "Hello from this QR";
   @override
   Widget build(BuildContext context) {
     final cart = BlocProvider.of<CartBloc>(context);
@@ -69,7 +78,7 @@ class BlocCartPage extends StatelessWidget {
                           ListTile(
                             title: RaisedButton(
                               color: fButtonColor,
-                              onPressed: () => print("nothing"),
+                              onPressed: () => _showQRCoder(context),
                               child: Text("Finalizar Compra",
                                   style: TextStyle(
                                     color: Colors.white,
@@ -85,5 +94,50 @@ class BlocCartPage extends StatelessWidget {
                 ),
               );
             }));
+  }
+
+  void _showQRCoder(BuildContext context) {
+    final bodyHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom;
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Codigo QR para pagar'),
+            content: Container(
+              height: 0.5 * bodyHeight,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Center(
+                      child: RepaintBoundary(
+                        child: QrImage(
+                          data: _dataString,
+                          size: 0.5 * bodyHeight,
+                          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                          onError: (ex) {
+                            print("[QR] ERROR - $ex");
+                            setState((){
+                              _inputErrorText = "Error! Maybe your input value is too long?";
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text('Muestre el codigo al cajero para realizar el pago.')
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Volver')),
+            ],
+          );
+        });
+
   }
 }
