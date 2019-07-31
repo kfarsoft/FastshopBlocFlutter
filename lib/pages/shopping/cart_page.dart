@@ -97,6 +97,7 @@ class BlocCartPageState extends State<BlocCartPage> {
   }
 
   void _showQRCoder(BuildContext context) {
+    //Me soluciono el problema del layout
     final bodyHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom;
     showDialog(
         context: context,
