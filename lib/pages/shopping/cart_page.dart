@@ -1,5 +1,6 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/cart/cart_bloc.dart';
+import 'package:fastshop/design/colors.dart';
 
 import 'package:fastshop/models/cartItem.dart';
 import 'package:fastshop/widgets/cart_item_widget.dart';
@@ -67,7 +68,7 @@ class BlocCartPage extends StatelessWidget {
                           ),
                           ListTile(
                             title: RaisedButton(
-                              color: Colors.blue,
+                              color: fButtonColor,
                               onPressed: () => print("nothing"),
                               child: Text("Finalizar Compra",
                                   style: TextStyle(
