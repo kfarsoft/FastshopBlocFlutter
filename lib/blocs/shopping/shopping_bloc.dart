@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-import 'dart:ui';
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/models/producto.dart';
 import 'package:fastshop/repos/producto_repository.dart';
@@ -10,6 +8,7 @@ class ShoppingBloc implements BlocBase {
 
   final _repo = ProductoRepository();
   final _product = PublishSubject<Producto>();
+  List<Producto> _plist;
 
   BehaviorSubject<List<Producto>> _itemsController = BehaviorSubject<List<Producto>>();
   Stream<List<Producto>> get items => _itemsController;
@@ -31,16 +30,13 @@ class ShoppingBloc implements BlocBase {
     //_loadShoppingItems();
   }
 
-  void addScanProduct(barcode) {
-    fetchProductScanned(barcode);
-    //TODO Agregar el producto al itemController para que se muestre en shopping page
-
-  }
-
-  fetchProductScanned(barcode) async {
+  void addScanProduct(barcode) async{
     Producto producto = await _repo.fetchProductScanned(barcode);
     _product.sink.add(producto);
+    _plist.add(producto);
+    _itemsController.sink.add(_plist);
   }
+
 
 /*
   void _loadShoppingItems() {

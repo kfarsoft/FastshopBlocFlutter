@@ -17,7 +17,7 @@ class Producto extends Object {
   final String categoria;
   final String marca;
   final double precio;
-  final Color color;
+
 
 
   Producto({
@@ -26,16 +26,16 @@ class Producto extends Object {
     this.categoria,
     this.marca,
     this.precio,
-    this.color,
+
   });
 
-  factory Producto.fromJson(Map<String, dynamic> json) => new Producto(
-    idProducto: json["idProducto"] as int,
-    descripcion: json["descripcion"] as String,
-    categoria: json["categoria"] as String,
-    marca: json["marca"] as String,
-    precio: json["precio"] as double,
-  );
+  Producto.fromJson(Map<String, dynamic> json)
+   : idProducto = json["idProducto"] as int,
+    descripcion = json["descripcion"],
+    categoria = json["categoria"],
+    marca = json["marca"],
+    precio = json["precio"] as double;
+
 
   Map<String, dynamic> toJson() => {
     "idProducto": idProducto,

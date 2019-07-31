@@ -26,7 +26,6 @@ class ProductoProvider {
   Future<Producto> fetchProductScanned(barcode) async {
     final response = await client.get(_urlScann+"?codigo=$barcode");
     if (response.statusCode == 200) {
-      //TODO solucionar error de compatibilidad mapa con lista
       Map productMap = jsonDecode(response.body);
       return Producto.fromJson(productMap);
     } else {

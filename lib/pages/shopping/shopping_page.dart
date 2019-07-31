@@ -29,7 +29,11 @@ class _ShoppingPageState extends State<ShoppingPage> {
         builder: (BuildContext context,
             AsyncSnapshot<List<Producto>> snapshot) {
           if (!snapshot.hasData) {
-            return Container();
+            return Container(
+              child: Center(
+                child: Text('Vacio', style: Theme.of(context).textTheme.display1),
+              ),
+            );
           }
           return ListView.builder(
             itemCount: snapshot.data.length,
