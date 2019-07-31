@@ -3,12 +3,19 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/models/producto.dart';
+import 'package:fastshop/repos/producto_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ShoppingBloc implements BlocBase {
 
+  final _repo = ProductoRepository();
+  final _product = PublishSubject<Producto>();
+
   BehaviorSubject<List<Producto>> _itemsController = BehaviorSubject<List<Producto>>();
   Stream<List<Producto>> get items => _itemsController;
+
+  final StreamController<Producto> _productAdd =
+  StreamController<Producto>();
 
   // Stream to list the items part of the shopping basket
   BehaviorSubject<List<Producto>> _shoppingBasketController = BehaviorSubject<List<Producto>>.seeded(<Producto>[]);
@@ -21,10 +28,21 @@ class ShoppingBloc implements BlocBase {
 
   // Constructor
   ShoppingBloc() {
-    _loadShoppingItems();
+    //_loadShoppingItems();
   }
 
+  void addScanProduct(barcode) {
+    fetchProductScanned(barcode);
+    //TODO Agregar el producto al itemController para que se muestre en shopping page
 
+  }
+
+  fetchProductScanned(barcode) async {
+    Producto producto = await _repo.fetchProductScanned(barcode);
+    _product.sink.add(producto);
+  }
+
+/*
   void _loadShoppingItems() {
     _itemsController.sink.add(List<Producto>.generate(50, (int index) {
       return Producto(
@@ -36,6 +54,6 @@ class ShoppingBloc implements BlocBase {
             .withOpacity(1.0),
       );
     }));
-  }
+  }*/
 
 }

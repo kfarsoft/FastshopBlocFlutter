@@ -41,27 +41,30 @@ class _ShoppingPageState extends State<ShoppingPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(onPressed: scan, label: Text('Escanear'), icon: Icon(Icons.camera_alt)),
+      floatingActionButton: FloatingActionButton.extended(onPressed: (){scan(bloc);}, label: Text('Escanear'), icon: Icon(Icons.camera_alt)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Future scan() async {
+  Future scan(ShoppingBloc bloc) async {
     try {
       String barcode = await BarcodeScanner.scan();
-      setState(() => this.barcode = barcode);
+      setState(() {
+        this.barcode = barcode;
+        bloc.addScanProduct(barcode);
+      });
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
-          this.barcode = 'The user did not grant the camera permission!';
+          this.barcode = 'Necesitamos acceso a la camara para continuar.';
         });
       } else {
-        setState(() => this.barcode = 'Unknown error: $e');
+        setState(() => this.barcode = 'Error desconocido: $e');
       }
     } on FormatException{
       setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
     } catch (e) {
-      setState(() => this.barcode = 'Unknown error: $e');
+      setState(() => this.barcode = 'Error desconocido: $e');
     }
   }
   }
