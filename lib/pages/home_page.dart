@@ -78,7 +78,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
       onWillPop: _onWillPopScope,
       child: DefaultTabController(
         length: 4,
-        initialIndex: 1,
+        initialIndex: 0,
         child: Scaffold(
           appBar: AppBar(
             title: Text('Bienvenido $user'),
