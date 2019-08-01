@@ -1,13 +1,12 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
-import 'package:fastshop/blocs/shopping/shopping_bloc.dart';
-import 'package:fastshop/pages/shopping/shopping_basket_page.dart';
+import 'package:fastshop/blocs/cart/cart_bloc.dart';
+import 'package:fastshop/pages/shopping/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingBasket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ShoppingBloc bloc = BlocProvider.of<ShoppingBloc>(context);
-
+    CartBloc bloc = BlocProvider.of<CartBloc>(context);
     return Container(
       width: 48.0,
       height: 48.0,
@@ -15,7 +14,7 @@ class ShoppingBasket extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (BuildContext context) => ShoppingBasketPage(),
+              builder: (BuildContext context) => BlocCartPage(),
             ),
           );
         },
@@ -30,7 +29,8 @@ class ShoppingBasket extends StatelessWidget {
                 child: Transform.translate(
                   offset: Offset(0.0, -5.0),
                   child: StreamBuilder<int>(
-                    stream: bloc.shoppingBasketSize,
+                    //stream: bloc.shoppingBasketSize,
+                    stream: bloc.itemCount,
                     initialData: 0,
                     builder:
                         (BuildContext context, AsyncSnapshot<int> snapshot) {

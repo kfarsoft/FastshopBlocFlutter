@@ -1,5 +1,5 @@
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
-import 'package:fastshop/blocs/cart/cart_boc.dart';
+import 'package:fastshop/blocs/cart/cart_bloc.dart';
 import 'package:fastshop/models/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';

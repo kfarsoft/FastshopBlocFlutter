@@ -5,33 +5,11 @@ import 'package:flutter/material.dart';
 
 
 
-class ActiveOfferPage extends StatefulWidget {
-  ActiveOfferPage({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return ActiveOfferPageState(
-    );
-  }
-}
-
-class ActiveOfferPageState extends State<ActiveOfferPage> {
-
-  @override
-  void initState() {
-    bloc.fetchAllTodo();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    bloc.dispose();
-    super.dispose();
-  }
-
+class ActiveOfferPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bloc.fetchAllTodo();
     return Scaffold(
       body: StreamBuilder(
         //Estamos escuchando al stream,

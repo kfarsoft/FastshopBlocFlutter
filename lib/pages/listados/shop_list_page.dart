@@ -7,15 +7,7 @@ import 'package:fastshop/blocs/listados/listado_bloc.dart';
 
 import 'package:fastshop/pages/listados/shop_details_list_page.dart';
 
-class ShopListPage extends StatefulWidget {
-  ShopListPage({Key key}) : super(key: key);
-  @override
-  State<StatefulWidget> createState() {
-    return ShopListPageState();
-  }
-}
-
-class ShopListPageState extends State<ShopListPage> {
+class ShopListPage extends StatelessWidget {
   var user;
 
   Future<void> fetchUserListNames() async {
@@ -24,20 +16,8 @@ class ShopListPageState extends State<ShopListPage> {
   }
 
   @override
-  void initState() {
-    //Trae solamente los nombres de los listados
-    fetchUserListNames();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    bloc_user_list.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    fetchUserListNames();
     return StreamBuilder(
       //Estamos escuchando al stream,
       //cuando el valor sale afuera del stream largamos la lista por pantalla
@@ -92,7 +72,6 @@ class ShopListPageState extends State<ShopListPage> {
                       idListado: snapshot.data[index].idListado),
                 ),
               );
-              setState(() {  });
             });
       },
     );

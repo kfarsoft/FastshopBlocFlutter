@@ -1,8 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
-
-import 'package:fastshop/models/producto.dart';
 import 'package:fastshop/models/cartItem.dart';
+import 'package:fastshop/models/producto.dart';
 
 class Cart {
   final List<CartItem> _items = <CartItem>[];
@@ -25,6 +24,10 @@ class Cart {
   /// This is in contrast of just doing [items.length], which only counts
   /// each product once, regardless of how many are being bought.
   int get itemCount => _items.fold(0, (sum, el) => sum + el.count);
+
+
+  /// The total price of items in the cart
+  double get itemTotalPrice => _items.fold(0, (sum, el) => sum + el.totalPrice);
 
   /// This is the current state of the cart.
   ///

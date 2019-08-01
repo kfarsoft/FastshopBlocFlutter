@@ -9,4 +9,7 @@ class ProductoRepository{
 
   Future<List<Producto>> fetchProductList() => productoProvider.fetchProductList();
 
+  Future<Producto> fetchProductScanned(barcode) => productoProvider.fetchProductScanned(barcode);
+
+
 }
