@@ -1,9 +1,15 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:fastshop/bloc_helpers/bloc_provider.dart';
 import 'package:fastshop/blocs/cart/cart_bloc.dart';
 import 'package:fastshop/design/colors.dart';
+import 'package:fastshop/models/producto.dart';
+import 'package:fastshop/repos/producto_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:ui';
+import 'dart:async';
+
+import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fastshop/models/cartItem.dart';
 import 'package:fastshop/widgets/cart_item_widget.dart';
@@ -15,23 +21,38 @@ class BlocCartPage extends StatefulWidget {
 }
 
 class BlocCartPageState extends State<BlocCartPage> {
-
+  String barcode = "";
   String _inputErrorText;
   String _dataString = "Hello from this QR";
+  final _repo = ProductoRepository();
+
   @override
   Widget build(BuildContext context) {
     final cart = BlocProvider.of<CartBloc>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Mi Carrito"),
-        ),
         body: StreamBuilder<List<CartItem>>(
             stream: cart.items,
             builder: (context, snapshot) {
               if (snapshot.data == null || snapshot.data.isEmpty) {
                 return Center(
-                    child: Text('Vacio',
-                        style: Theme.of(context).textTheme.display1));
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Vacio', style: Theme.of(context).textTheme.display1),
+                    RaisedButton(
+                      color: Colors.green,
+                      onPressed: () => scan(cart, _repo),
+                      child: Text(
+                        "Escanear",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ));
               }
               return Container(
                 child: Column(
@@ -60,23 +81,20 @@ class BlocCartPageState extends State<BlocCartPage> {
                               builder: (context, snapshot) => Text(
                                 "Total: \$${num.parse(snapshot.data.toStringAsFixed(2))}",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 25),
+                                    fontWeight: FontWeight.w900, fontSize: 15),
                               ),
                             ),
                             subtitle: StreamBuilder<int>(
                               stream: cart.itemCount,
                               initialData: 0,
                               builder: (context, snapshot) => Text(
-                                "Cantidad de productos: ${snapshot.data}",
+                                "Cant de prod.: ${snapshot.data}",
                                 // style: TextStyle(
                                 //     fontWeight: FontWeight.w900,
                                 //     fontSize: 25),
                               ),
                             ),
-                          ),
-                          ListTile(
-                            title: RaisedButton(
+                            trailing: RaisedButton(
                               color: fButtonColor,
                               onPressed: () => _showQRCoder(context),
                               child: Text("Finalizar Compra",
@@ -87,6 +105,18 @@ class BlocCartPageState extends State<BlocCartPage> {
                                   )),
                             ),
                           ),
+                          ListTile(
+                            title: RaisedButton(
+                              color: Colors.green,
+                              onPressed: () => scan(cart, _repo),
+                              child: Text("Escanear",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -98,7 +128,8 @@ class BlocCartPageState extends State<BlocCartPage> {
 
   void _showQRCoder(BuildContext context) {
     //Me soluciono el problema del layout
-    final bodyHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom;
+    final bodyHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).viewInsets.bottom;
     showDialog(
         context: context,
         builder: (context) {
@@ -115,11 +146,13 @@ class BlocCartPageState extends State<BlocCartPage> {
                         child: QrImage(
                           data: _dataString,
                           size: 0.5 * bodyHeight,
-                          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
                           onError: (ex) {
                             print("[QR] ERROR - $ex");
-                            setState((){
-                              _inputErrorText = "Error! Maybe your input value is too long?";
+                            setState(() {
+                              _inputErrorText =
+                                  "Error! Maybe your input value is too long?";
                             });
                           },
                         ),
@@ -139,6 +172,32 @@ class BlocCartPageState extends State<BlocCartPage> {
             ],
           );
         });
+  }
 
+  Future scan(CartBloc _cartBloc, ProductoRepository _repo) async {
+    try {
+      String barcode = await BarcodeScanner.scan();
+      //TODO arreglar e implementar bloc en esta parte
+      Producto producto = await _repo.fetchProductScanned(barcode);
+      _cartBloc.cartAddition.add(CartAddition(producto));
+      //TODO arreglar e implementar bloc en esta parte
+      // setState(() {
+      //   this.barcode = barcode;
+      //   bloc.addScanProduct(barcode);
+      // });
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          this.barcode = 'Necesitamos acceso a la camara para continuar.';
+        });
+      } else {
+        setState(() => this.barcode = 'Error desconocido: $e');
+      }
+    } on FormatException {
+      setState(() => this.barcode =
+          'null (User returned using the "back"-button before scanning anything. Result)');
+    } catch (e) {
+      setState(() => this.barcode = 'Error desconocido: $e');
+    }
   }
 }

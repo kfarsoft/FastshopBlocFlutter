@@ -3,6 +3,7 @@ import 'package:fastshop/functions/getUsername.dart';
 import 'package:fastshop/pages/active_offer.dart';
 import 'package:fastshop/pages/category_page.dart';
 import 'package:fastshop/pages/listados/shop_list_page.dart';
+import 'package:fastshop/pages/shopping/cart_page.dart';
 import 'package:fastshop/pages/shopping/scanner_page.dart';
 import 'package:fastshop/widgets/log_out_button.dart';
 import 'package:fastshop/widgets/shopping_basket.dart';
@@ -42,7 +43,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
   List<Widget> _tabItems() => [
     Tab(text: "Promociones",icon: new Icon(Icons.pages)),
     Tab(text: "Categorias",icon: new Icon(Icons.shop)),
-    Tab(text: "Escanear",icon: new Icon(Icons.camera_alt)),
+    Tab(text: "Carrito",icon: new Icon(Icons.shopping_cart)),
     Tab(text: "Listado",icon: new Icon(Icons.list)),
   ];
 
@@ -60,7 +61,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
           content = "Categorias";
           break;
         case 2:
-          content = "Escanear";
+          content = "Carrito";
           break;
         case 3:
           content = "Listado";
@@ -104,7 +105,7 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
                       children: <Widget>[
                         ActiveOfferPage(),
                         CategoryPage(),
-                        ScannerPage(),
+                        BlocCartPage(),
                         ShopListPage()
                       ]
                   ),
