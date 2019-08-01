@@ -29,7 +29,7 @@ class ShopListPage extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('Error es:${snapshot.error}');
         }
-        return Center(child: CircularProgressIndicator());
+        return Center(child: Text('Vacio', style: Theme.of(context).textTheme.display1));
       },
     );
     //floatingActionButton: FloatingActionButton.extended(onPressed: null, backgroundColor: Colors.blueAccent, icon: Icon(Icons.add), label: Text('Nuevo'))

@@ -38,9 +38,9 @@ class BlocCartPageState extends State<BlocCartPage> {
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Vacio', style: Theme.of(context).textTheme.display1),
+                      Text('Vacio', style: Theme.of(context).textTheme.display1),
                     RaisedButton(
-                      color: Colors.green,
+                      color: fButtonColor,
                       onPressed: () => scan(cart, _repo),
                       child: Text(
                         "Escanear",

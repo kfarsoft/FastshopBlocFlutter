@@ -4,7 +4,6 @@ import 'package:fastshop/pages/active_offer.dart';
 import 'package:fastshop/pages/category_page.dart';
 import 'package:fastshop/pages/listados/shop_list_page.dart';
 import 'package:fastshop/pages/shopping/cart_page.dart';
-import 'package:fastshop/pages/shopping/scanner_page.dart';
 import 'package:fastshop/widgets/log_out_button.dart';
 import 'package:fastshop/widgets/shopping_basket.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,6 @@ class HomePageSample extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-   // _saveCurrentRoute("/HomeScreen");
     _getUsername();
   }
 

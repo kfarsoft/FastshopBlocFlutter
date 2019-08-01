@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final promocion = promocionFromJson(jsonString);
-
 import 'dart:convert';
 
 List<ListCategory> listCategoriesFromJson(String str) {

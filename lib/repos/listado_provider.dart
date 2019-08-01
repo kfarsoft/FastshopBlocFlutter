@@ -135,18 +135,5 @@ class ListadoProvider {
       throw Exception('Verificar carga de usuario');
     }
   }
-
-/*
-  Future updateInsert(ids) async {
-    print('$_url$ids/update');
-    final response = await client.put("$_url$ids/update", body: {'done': "true"});
-    if (response.statusCode == 200) {
-      print('berhasil di update');
-      return response;
-    } else {
-      throw Exception('Failed to update data');
-    }
-  }*/
-
 }
 
